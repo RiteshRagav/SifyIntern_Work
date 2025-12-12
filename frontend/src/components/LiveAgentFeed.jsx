@@ -1,0 +1,168 @@
+/**
+ * Live agent feed component showing real-time agent events.
+ */
+
+import { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  selectEvents,
+  selectStatus,
+  selectCurrentAgent,
+  EVENT_TYPES,
+  AGENT_NAMES,
+} from '../store/agentSlice';
+
+/**
+ * Color mapping for agents.
+ */
+const AGENT_COLORS = {
+  [AGENT_NAMES.preAct]: 'agent-preact',
+  [AGENT_NAMES.ReAct]: 'agent-react',
+  [AGENT_NAMES.ReFlect]: 'agent-reflect',
+  [AGENT_NAMES.TME]: 'agent-tme',
+  [AGENT_NAMES.RAG]: 'agent-rag',
+  system: 'agent-system',
+};
+
+/**
+ * Event type icons.
+ */
+const EVENT_ICONS = {
+  [EVENT_TYPES.thought]: '💭',
+  [EVENT_TYPES.action]: '⚡',
+  [EVENT_TYPES.observation]: '👁️',
+  [EVENT_TYPES.plan]: '📋',
+  [EVENT_TYPES.scene]: '🎬',
+  [EVENT_TYPES.memory_update]: '💾',
+  [EVENT_TYPES.rag_result]: '🔍',
+  [EVENT_TYPES.error]: '❌',
+  [EVENT_TYPES.complete]: '✅',
+  [EVENT_TYPES.status]: '📢',
+};
+
+/**
+ * Format timestamp for display.
+ */
+const formatTime = (timestamp) => {
+  const date = new Date(timestamp);
+  return date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+};
+
+/**
+ * Single event item component.
+ */
+function EventItem({ event }) {
+  const agentClass = AGENT_COLORS[event.agent] || 'agent-default';
+  const icon = EVENT_ICONS[event.event] || '📌';
+  
+  return (
+    <div className={`event-item ${agentClass} event-${event.event}`}>
+      <div className="event-header">
+        <span className="event-icon">{icon}</span>
+        <span className="event-agent">{event.agent}</span>
+        <span className="event-type">{event.event}</span>
+        <span className="event-time">{formatTime(event.timestamp || event.receivedAt)}</span>
+      </div>
+      <div className="event-content">
+        {event.content}
+      </div>
+      {event.metadata?.sources && (
+        <div className="event-sources">
+          <span className="sources-label">Sources:</span>
+          {event.metadata.sources.map((source, i) => (
+            <span key={i} className="source-tag">{source}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * LiveAgentFeed component.
+ */
+function LiveAgentFeed() {
+  const events = useSelector(selectEvents);
+  const status = useSelector(selectStatus);
+  const currentAgent = useSelector(selectCurrentAgent);
+  const feedRef = useRef(null);
+  
+  // Auto-scroll to bottom when new events arrive
+  useEffect(() => {
+    if (feedRef.current) {
+      feedRef.current.scrollTop = feedRef.current.scrollHeight;
+    }
+  }, [events]);
+  
+  const isRunning = status === 'running' || status === 'connecting';
+  
+  return (
+    <div className="live-agent-feed">
+      <div className="feed-header">
+        <h3 className="section-title">
+          <span className="feed-icon">📡</span>
+          Live Agent Feed
+        </h3>
+        <div className="feed-status">
+          {isRunning && (
+            <>
+              <span className="status-dot active"></span>
+              <span className="status-text">
+                {currentAgent ? `${currentAgent} active` : 'Processing...'}
+              </span>
+            </>
+          )}
+          {status === 'complete' && (
+            <>
+              <span className="status-dot complete"></span>
+              <span className="status-text">Complete</span>
+            </>
+          )}
+          {status === 'idle' && (
+            <>
+              <span className="status-dot idle"></span>
+              <span className="status-text">Waiting</span>
+            </>
+          )}
+        </div>
+      </div>
+      
+      <div className="feed-legend">
+        <span className="legend-item agent-preact">preAct</span>
+        <span className="legend-item agent-react">ReAct</span>
+        <span className="legend-item agent-reflect">ReFlect</span>
+        <span className="legend-item agent-rag">RAG</span>
+        <span className="legend-item agent-tme">TME</span>
+      </div>
+      
+      <div className="feed-container" ref={feedRef}>
+        {events.length === 0 ? (
+          <div className="feed-empty">
+            <span className="empty-icon">🎯</span>
+            <p>Agent events will appear here in real-time</p>
+            <p className="empty-hint">Submit a query to start generation</p>
+          </div>
+        ) : (
+          events.map((event) => (
+            <EventItem key={event.id} event={event} />
+          ))
+        )}
+        
+        {isRunning && (
+          <div className="feed-typing">
+            <span className="typing-dot"></span>
+            <span className="typing-dot"></span>
+            <span className="typing-dot"></span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default LiveAgentFeed;
+
