@@ -19,7 +19,7 @@ class TaskMemoryEngine:
     Task Memory Engine for storing and retrieving agent memories.
     
     Uses ChromaDB for vector-based semantic search of memories,
-    enabling context-aware retrieval during storyboard generation.
+    enabling context-aware retrieval during content generation.
     """
     
     def __init__(

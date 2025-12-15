@@ -1405,6 +1405,99 @@ body {
   color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.5;
+  position: relative;
+}
+
+.event-content .content-text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  margin: 0;
+  background: transparent;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.event-content.expanded .content-text {
+  max-height: none;
+}
+
+/* Event action buttons */
+.event-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-left: auto;
+}
+
+.btn-copy {
+  background: var(--bg-tertiary);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.btn-copy:hover {
+  background: var(--bg-hover);
+}
+
+.btn-copy.copied {
+  background: var(--accent-success);
+  color: white;
+}
+
+.btn-expand {
+  display: block;
+  width: 100%;
+  background: var(--bg-tertiary);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.btn-expand:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Final output section in events */
+.event-final-output {
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.final-output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.btn-copy-full {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.btn-copy-full:hover {
+  background: var(--accent-secondary);
 }
 
 /* Footer */

@@ -1,5 +1,5 @@
 """
-Task Memory Engine module for the multi-agent storyboard system.
+Task Memory Engine module for the ThinkerLLM multi-agent system.
 """
 
 from .tme import TaskMemoryEngine, get_tme_service

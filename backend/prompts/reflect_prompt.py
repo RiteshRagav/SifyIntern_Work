@@ -1,5 +1,5 @@
 """
-ReFlect agent prompt builder for storyboard review and refinement.
+ReFlect agent prompt builder for content review and refinement.
 """
 
 from typing import Dict, Any, Optional, List
@@ -11,25 +11,25 @@ class ReFlectPromptBuilder:
     Builder for ReFlect (reflection) agent prompts.
     
     The ReFlect agent is responsible for:
-    - Analyzing the complete storyboard
-    - Checking narrative coherence
-    - Ensuring visual consistency
+    - Analyzing the complete content
+    - Checking coherence and consistency
+    - Ensuring quality standards are met
     - Fixing issues and enhancing quality
-    - Producing the final polished storyboard
+    - Producing the final polished output
     """
     
-    SYSTEM_PROMPT = """You are ReFlect, an expert storyboard review and refinement agent. Your role is to analyze completed storyboards, identify issues, and enhance their quality.
+    SYSTEM_PROMPT = """You are ReFlect, an expert content review and refinement agent. Your role is to analyze completed content, identify issues, and enhance quality.
 
 You excel at:
-- Narrative analysis and story flow
-- Visual consistency checking
+- Content analysis and logical flow
+- Consistency checking across sections
 - Tone and style coherence
-- Identifying plot holes or continuity errors
-- Enhancing descriptions for clarity and impact
+- Identifying gaps or errors
+- Enhancing clarity and impact
 
-Your goal is to produce a polished, professional storyboard that meets the highest standards."""
+Your goal is to produce polished, professional content that meets the highest standards."""
 
-    REVIEW_TEMPLATE = """## STORYBOARD REVIEW TASK
+    REVIEW_TEMPLATE = """## CONTENT REVIEW TASK
 
 **Domain:** {domain}
 **Title:** {title}
@@ -37,13 +37,13 @@ Your goal is to produce a polished, professional storyboard that meets the highe
 
 ## MASTER PLAN
 
-**World Setting:** {world_setting}
-**Visual Style:** {visual_style}
+**Context:** {context_description}
+**Content Style:** {content_style}
 **Tone:** {tone}
 
-## SCENES TO REVIEW
+## CONTENT TO REVIEW
 
-{scenes_content}
+{content_sections}
 
 ## DOMAIN GUIDELINES
 
@@ -51,59 +51,47 @@ Your goal is to produce a polished, professional storyboard that meets the highe
 
 ## YOUR TASK
 
-Perform a comprehensive review of this storyboard:
+Perform a comprehensive review of this content:
 
-### 1. NARRATIVE ANALYSIS
-- Is the story flow logical and engaging?
-- Are there any plot holes or continuity errors?
-- Does the pacing work for the domain?
-- Is the beginning compelling and the ending satisfying?
+### 1. CONTENT ANALYSIS
+- Is the information accurate and complete?
+- Are there any gaps or missing elements?
+- Does the content address the original request fully?
+- Is the depth appropriate for the audience?
 
-### 2. VISUAL CONSISTENCY
-- Are visual elements consistent across scenes?
-- Does each scene follow the established visual style?
-- Are camera directions appropriate and varied?
-- Are there any visual continuity issues?
+### 2. CONSISTENCY CHECK
+- Is terminology used consistently throughout?
+- Is the style consistent across all sections?
+- Is the tone appropriate and consistent?
+- Are there any contradictions?
 
-### 3. TONE & STYLE
-- Is the tone consistent throughout?
-- Does it match the domain requirements?
-- Is the language appropriate for the audience?
+### 3. QUALITY ASSESSMENT
+- Is the content clear and well-organized?
+- Are explanations easy to understand?
+- Are examples helpful and relevant?
+- Is the formatting appropriate?
 
-### 4. TECHNICAL QUALITY
-- Are descriptions clear and actionable?
-- Are there any missing elements in any scene?
-- Are durations appropriate?
-
-### 5. IMPROVEMENTS
+### 4. IMPROVEMENTS
 For each issue found, provide:
-- The scene number
+- The section number/location
 - The issue description
 - The recommended fix
 
-After your review, provide the FINAL STORYBOARD with all improvements incorporated."""
+After your review, provide the FINAL CONTENT with all improvements incorporated."""
 
-    SCENE_FORMAT = """
-### Scene {scene_number}: {title}
+    SECTION_FORMAT = """
+### Section {section_number}: {title}
 
-**Description:** {description}
+**Content:** {content}
 
-**Visual Elements:** {visual_elements}
-
-**Camera Direction:** {camera_direction}
-
-**Dialogue:** {dialogue}
-
-**Sound/Music:** {sound}
-
-**Duration:** {duration}s
+**Key Points:** {key_points}
 
 **Notes:** {notes}
 """
 
-    ENHANCEMENT_TEMPLATE = """## SCENE ENHANCEMENT TASK
+    ENHANCEMENT_TEMPLATE = """## CONTENT ENHANCEMENT TASK
 
-**Scene Number:** {scene_number}
+**Section Number:** {section_number}
 **Current Content:**
 {current_content}
 
@@ -115,28 +103,31 @@ After your review, provide the FINAL STORYBOARD with all improvements incorporat
 
 ## YOUR TASK
 
-Enhance this scene to address the identified issues while maintaining consistency with the overall storyboard.
+Enhance this section to address the identified issues while maintaining consistency with the overall content.
 
-Provide the enhanced scene in the standard format."""
+Provide the enhanced section in the standard format."""
 
-    FINAL_OUTPUT_TEMPLATE = """## FINAL STORYBOARD
+    FINAL_OUTPUT_TEMPLATE = """## FINAL OUTPUT
 
 **Title:** {title}
 **Domain:** {domain}
-**Total Scenes:** {total_scenes}
+**Total Sections:** {total_sections}
 
 ### Overview
 {overview}
 
-### Visual Style Guide
-{visual_style}
+### Content Style Guide
+{content_style}
 
-### Scenes
+### Content
 
-{scenes}
+{sections}
 
-### Production Notes
-{production_notes}
+### Summary
+{summary}
+
+### Additional Notes
+{notes}
 """
 
     def __init__(self):
@@ -158,62 +149,68 @@ Provide the enhanced scene in the standard format."""
         title: str,
         query: str,
         master_plan: Dict[str, Any],
-        scenes: List[Scene],
+        sections: List[Any],
         domain_guidelines: str
     ) -> str:
         """
-        Build the review prompt for the complete storyboard.
+        Build the review prompt for the complete content.
         
         Args:
             domain: Domain type
-            title: Storyboard title
+            title: Content title
             query: Original user query
             master_plan: Master plan data
-            scenes: List of generated scenes
+            sections: List of generated sections
             domain_guidelines: Domain-specific guidelines
             
         Returns:
             str: Formatted review prompt
         """
-        # Format scenes
-        scenes_content = ""
-        for scene in scenes:
-            scenes_content += self.SCENE_FORMAT.format(
-                scene_number=scene.scene_number,
-                title=scene.title,
-                description=scene.description,
-                visual_elements=", ".join(scene.visual_elements) if scene.visual_elements else "None specified",
-                camera_direction=scene.camera_direction or "Standard",
-                dialogue=scene.dialogue or "None",
-                sound=scene.sound_effects or "Standard ambient",
-                duration=scene.duration_seconds or "TBD",
-                notes=scene.notes or "None"
-            )
+        # Format sections
+        content_sections = ""
+        for section in sections:
+            if hasattr(section, 'scene_number'):
+                # Legacy Scene object support
+                content_sections += self.SECTION_FORMAT.format(
+                    section_number=section.scene_number,
+                    title=section.title,
+                    content=section.description,
+                    key_points=", ".join(section.visual_elements) if section.visual_elements else "None specified",
+                    notes=section.notes or "None"
+                )
+            elif isinstance(section, dict):
+                content_sections += self.SECTION_FORMAT.format(
+                    section_number=section.get("section_number", "?"),
+                    title=section.get("title", "Untitled"),
+                    content=section.get("content", section.get("description", "")),
+                    key_points=section.get("key_points", "None specified"),
+                    notes=section.get("notes", "None")
+                )
         
         return self.REVIEW_TEMPLATE.format(
             domain=domain,
             title=title,
             query=query,
-            world_setting=master_plan.get("world_setting", "Not specified"),
-            visual_style=master_plan.get("visual_style", "Standard"),
+            context_description=master_plan.get("context_description", master_plan.get("world_setting", "Not specified")),
+            content_style=master_plan.get("content_style", master_plan.get("visual_style", "Standard")),
             tone=master_plan.get("tone", "Professional"),
-            scenes_content=scenes_content,
+            content_sections=content_sections,
             domain_guidelines=domain_guidelines
         )
     
     def build_enhancement_prompt(
         self,
-        scene_number: int,
+        section_number: int,
         current_content: str,
         issues: List[str],
         guidelines: str
     ) -> str:
         """
-        Build a prompt for enhancing a specific scene.
+        Build a prompt for enhancing a specific section.
         
         Args:
-            scene_number: Scene to enhance
-            current_content: Current scene content
+            section_number: Section to enhance
+            current_content: Current section content
             issues: List of issues to address
             guidelines: Enhancement guidelines
             
@@ -223,7 +220,7 @@ Provide the enhanced scene in the standard format."""
         issues_str = "\n".join([f"- {issue}" for issue in issues])
         
         return self.ENHANCEMENT_TEMPLATE.format(
-            scene_number=scene_number,
+            section_number=section_number,
             current_content=current_content,
             issues=issues_str,
             guidelines=guidelines
@@ -231,34 +228,39 @@ Provide the enhanced scene in the standard format."""
     
     def build_coherence_check_prompt(
         self,
-        scenes: List[Scene]
+        sections: List[Any]
     ) -> str:
         """
         Build a prompt for checking overall coherence.
         
         Args:
-            scenes: All scenes in the storyboard
+            sections: All sections in the content
             
         Returns:
             str: Coherence check prompt
         """
-        scene_summaries = "\n".join([
-            f"Scene {s.scene_number}: {s.title} - {s.description[:100]}..."
-            for s in scenes
-        ])
+        section_summaries = []
+        for s in sections:
+            if hasattr(s, 'scene_number'):
+                section_summaries.append(f"Section {s.scene_number}: {s.title} - {s.description[:100]}...")
+            elif isinstance(s, dict):
+                content = s.get('content', s.get('description', ''))[:100]
+                section_summaries.append(f"Section {s.get('section_number', '?')}: {s.get('title', 'Untitled')} - {content}...")
+        
+        summaries_str = "\n".join(section_summaries)
         
         return f"""## COHERENCE CHECK
 
-Review these scene summaries for narrative coherence:
+Review these section summaries for content coherence:
 
-{scene_summaries}
+{summaries_str}
 
 Check for:
-1. Logical story progression
-2. Character consistency
-3. Setting continuity
-4. Cause-and-effect relationships
-5. Emotional arc progression
+1. Logical progression of content
+2. Consistent terminology
+3. No contradictions between sections
+4. Smooth transitions
+5. Appropriate depth throughout
 
 Identify any coherence issues and suggest fixes."""
     
@@ -267,46 +269,54 @@ Identify any coherence issues and suggest fixes."""
         title: str,
         domain: str,
         overview: str,
-        visual_style: str,
-        scenes: List[Scene],
-        production_notes: str = ""
+        content_style: str,
+        sections: List[Any],
+        summary: str = "",
+        notes: str = ""
     ) -> str:
         """
-        Build the final storyboard output.
+        Build the final content output.
         
         Args:
-            title: Storyboard title
+            title: Content title
             domain: Domain type
-            overview: Storyboard overview
-            visual_style: Visual style guide
-            scenes: All scenes
-            production_notes: Additional notes
+            overview: Content overview
+            content_style: Content style guide
+            sections: All sections
+            summary: Final summary
+            notes: Additional notes
             
         Returns:
-            str: Final formatted storyboard
+            str: Final formatted content
         """
-        scenes_str = ""
-        for scene in scenes:
-            scenes_str += self.SCENE_FORMAT.format(
-                scene_number=scene.scene_number,
-                title=scene.title,
-                description=scene.description,
-                visual_elements=", ".join(scene.visual_elements) if scene.visual_elements else "None",
-                camera_direction=scene.camera_direction or "Standard",
-                dialogue=scene.dialogue or "None",
-                sound=scene.sound_effects or "Standard",
-                duration=scene.duration_seconds or "TBD",
-                notes=scene.notes or "None"
-            )
+        sections_str = ""
+        for section in sections:
+            if hasattr(section, 'scene_number'):
+                sections_str += self.SECTION_FORMAT.format(
+                    section_number=section.scene_number,
+                    title=section.title,
+                    content=section.description,
+                    key_points=", ".join(section.visual_elements) if section.visual_elements else "None",
+                    notes=section.notes or "None"
+                )
+            elif isinstance(section, dict):
+                sections_str += self.SECTION_FORMAT.format(
+                    section_number=section.get("section_number", "?"),
+                    title=section.get("title", "Untitled"),
+                    content=section.get("content", section.get("description", "")),
+                    key_points=section.get("key_points", "None"),
+                    notes=section.get("notes", "None")
+                )
         
         return self.FINAL_OUTPUT_TEMPLATE.format(
             title=title,
             domain=domain,
-            total_scenes=len(scenes),
+            total_sections=len(sections),
             overview=overview,
-            visual_style=visual_style,
-            scenes=scenes_str,
-            production_notes=production_notes or "No additional notes."
+            content_style=content_style,
+            sections=sections_str,
+            summary=summary or "See sections above for complete content.",
+            notes=notes or "No additional notes."
         )
 
 
@@ -320,4 +330,3 @@ def get_reflect_prompt_builder() -> ReFlectPromptBuilder:
     if _reflect_builder is None:
         _reflect_builder = ReFlectPromptBuilder()
     return _reflect_builder
-

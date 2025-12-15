@@ -19,7 +19,7 @@ class RAGRetriever:
     RAG Retriever for domain-specific content retrieval.
     
     Uses ChromaDB to store and retrieve reference documents
-    that provide context for storyboard generation.
+    that provide context for AI-assisted content generation.
     """
     
     def __init__(
@@ -91,108 +91,125 @@ class RAGRetriever:
         self._initialized = True
     
     def _get_domain_reference_content(self) -> Dict[str, List[Dict[str, Any]]]:
-        """Get pre-defined domain reference content."""
+        """Get pre-defined domain reference content for general AI assistance."""
         return {
-            "product_demo": [
+            "software": [
                 {
-                    "content": "Product demos should open with the problem statement, then introduce the solution. Use close-up shots for UI details and wide shots for context. Maintain a professional yet approachable tone.",
-                    "source": "product_demo_guide",
-                    "metadata": {"category": "structure"}
+                    "content": "Software development best practices include writing clean, maintainable code with proper documentation. Follow SOLID principles and design patterns appropriate to the problem domain.",
+                    "source": "software_dev_guide",
+                    "metadata": {"category": "development"}
                 },
                 {
-                    "content": "Effective product demos use the AIDA framework: Attention (hook), Interest (problem), Desire (solution benefits), Action (call to action). Each scene should flow naturally to the next.",
-                    "source": "marketing_framework",
-                    "metadata": {"category": "framework"}
+                    "content": "Code reviews should focus on correctness, readability, and maintainability. Look for potential bugs, security issues, and opportunities for optimization.",
+                    "source": "code_review_guide",
+                    "metadata": {"category": "quality"}
                 },
                 {
-                    "content": "For software demos, use screen recordings with smooth transitions. Highlight key features with subtle animations or callouts. Keep scenes under 10 seconds for engagement.",
-                    "source": "software_demo_tips",
-                    "metadata": {"category": "technical"}
+                    "content": "API design should follow RESTful conventions: use proper HTTP methods, meaningful status codes, consistent naming, and comprehensive documentation.",
+                    "source": "api_design_guide",
+                    "metadata": {"category": "architecture"}
                 }
             ],
             "education": [
                 {
-                    "content": "Educational content should follow the 'Tell-Show-Do' methodology. First explain the concept, then demonstrate it visually, finally show practical application.",
+                    "content": "Educational content should follow the 'Tell-Show-Do' methodology. First explain the concept, then demonstrate with examples, finally provide practice opportunities.",
                     "source": "education_methodology",
                     "metadata": {"category": "pedagogy"}
                 },
                 {
-                    "content": "Use visual metaphors and analogies to explain complex concepts. Break information into digestible chunks. Include recap scenes every 3-4 scenes.",
+                    "content": "Use analogies and real-world examples to explain complex concepts. Break information into digestible chunks. Include summaries and key takeaways.",
                     "source": "instructional_design",
                     "metadata": {"category": "design"}
                 },
                 {
-                    "content": "Educational videos benefit from consistent visual language: same colors for same concepts, recurring characters or icons, and clear visual hierarchy.",
-                    "source": "visual_learning",
-                    "metadata": {"category": "visual"}
+                    "content": "Effective learning materials include clear objectives, structured progression from simple to complex, practice exercises, and assessment opportunities.",
+                    "source": "curriculum_design",
+                    "metadata": {"category": "structure"}
                 }
             ],
-            "medical": [
+            "healthcare": [
                 {
-                    "content": "Medical content requires accuracy and sensitivity. Use anatomically correct visualizations. Include disclaimers where appropriate. Avoid graphic content unless necessary.",
+                    "content": "Medical content requires accuracy, proper citations, and appropriate disclaimers. Always recommend consulting healthcare professionals for personal medical decisions.",
                     "source": "medical_guidelines",
                     "metadata": {"category": "compliance"}
                 },
                 {
-                    "content": "Patient education videos should use simple language (6th-grade reading level). Show procedures step-by-step. Include recovery expectations and when to seek help.",
+                    "content": "Patient education materials should use plain language (6th-grade reading level). Explain procedures step-by-step with clear expectations and warning signs.",
                     "source": "patient_education",
                     "metadata": {"category": "communication"}
                 },
                 {
-                    "content": "Healthcare marketing must balance professionalism with empathy. Show diverse patients. Focus on outcomes and quality of life improvements.",
-                    "source": "healthcare_marketing",
-                    "metadata": {"category": "marketing"}
+                    "content": "Healthcare information must balance accuracy with accessibility. Use proper medical terminology but also provide lay explanations.",
+                    "source": "health_communication",
+                    "metadata": {"category": "writing"}
                 }
             ],
             "marketing": [
                 {
-                    "content": "Marketing storyboards should establish brand identity in the first 3 seconds. Use consistent color palette and typography. Create emotional connection before presenting product.",
-                    "source": "brand_guidelines",
-                    "metadata": {"category": "branding"}
+                    "content": "Marketing content should establish clear value propositions. Use the AIDA framework: Attention (hook), Interest (problem), Desire (benefits), Action (call to action).",
+                    "source": "marketing_framework",
+                    "metadata": {"category": "strategy"}
                 },
                 {
-                    "content": "Effective marketing videos use storytelling: relatable protagonist, conflict/problem, resolution through product/service, transformation/success.",
+                    "content": "Effective marketing uses storytelling: identify the audience's pain points, present solutions, and demonstrate transformation through your product/service.",
                     "source": "storytelling_marketing",
                     "metadata": {"category": "narrative"}
                 },
                 {
-                    "content": "Social media marketing requires vertical formats (9:16), bold text overlays, and hooks in the first 2 seconds. Optimize for sound-off viewing.",
-                    "source": "social_media_guide",
-                    "metadata": {"category": "platform"}
+                    "content": "Brand consistency is crucial: maintain consistent voice, messaging, and visual identity across all content. Know your target audience deeply.",
+                    "source": "brand_guidelines",
+                    "metadata": {"category": "branding"}
                 }
             ],
-            "film_style": [
+            "finance": [
                 {
-                    "content": "Cinematic storytelling uses the three-act structure: Setup (25%), Confrontation (50%), Resolution (25%). Each act has specific pacing and emotional beats.",
-                    "source": "screenplay_structure",
-                    "metadata": {"category": "structure"}
+                    "content": "Financial analysis should include clear methodology, data sources, assumptions, and limitations. Present findings with appropriate context and caveats.",
+                    "source": "financial_analysis_guide",
+                    "metadata": {"category": "analysis"}
                 },
                 {
-                    "content": "Camera movements convey emotion: dolly in for intensity, dolly out for isolation, tracking shots for journey, static shots for stability or tension.",
-                    "source": "cinematography_guide",
-                    "metadata": {"category": "camera"}
+                    "content": "Investment advice requires disclaimers about risk. Past performance doesn't guarantee future results. Consider individual circumstances and risk tolerance.",
+                    "source": "investment_guidelines",
+                    "metadata": {"category": "compliance"}
                 },
                 {
-                    "content": "Lighting creates mood: high-key for comedy/romance, low-key for drama/thriller, motivated lighting for realism, stylized for artistic effect.",
-                    "source": "lighting_guide",
-                    "metadata": {"category": "lighting"}
+                    "content": "Financial reports should be clear, accurate, and compliant with relevant standards (GAAP, IFRS). Include executive summaries for non-technical stakeholders.",
+                    "source": "financial_reporting",
+                    "metadata": {"category": "reporting"}
                 }
             ],
-            "gaming": [
+            "legal": [
                 {
-                    "content": "Game trailers should showcase gameplay variety, key mechanics, and progression systems. Use fast cuts for action, slower pacing for story beats.",
-                    "source": "game_trailer_guide",
-                    "metadata": {"category": "trailer"}
+                    "content": "Legal content must include disclaimers that it is not legal advice. Recommend consulting qualified attorneys for specific situations.",
+                    "source": "legal_disclaimer",
+                    "metadata": {"category": "compliance"}
                 },
                 {
-                    "content": "Gaming content benefits from dynamic camera angles: over-shoulder for immersion, wide shots for scale, dramatic angles for boss encounters.",
-                    "source": "game_cinematics",
-                    "metadata": {"category": "camera"}
+                    "content": "Legal documents should be precise and unambiguous. Define terms clearly, use consistent language, and structure content logically.",
+                    "source": "legal_writing",
+                    "metadata": {"category": "writing"}
                 },
                 {
-                    "content": "Game storyboards should indicate interactivity: UI elements, player choices, branching paths. Use consistent iconography for player actions.",
-                    "source": "interactive_design",
-                    "metadata": {"category": "interactivity"}
+                    "content": "Contract analysis should identify key terms, obligations, rights, risks, and potential issues. Highlight areas requiring negotiation or clarification.",
+                    "source": "contract_analysis",
+                    "metadata": {"category": "analysis"}
+                }
+            ],
+            "general": [
+                {
+                    "content": "Clear communication requires knowing your audience, organizing information logically, using appropriate language, and providing actionable insights.",
+                    "source": "communication_guide",
+                    "metadata": {"category": "writing"}
+                },
+                {
+                    "content": "Problem-solving follows a structured approach: define the problem, gather information, generate solutions, evaluate options, implement, and review results.",
+                    "source": "problem_solving",
+                    "metadata": {"category": "methodology"}
+                },
+                {
+                    "content": "Research should use credible sources, cross-reference information, acknowledge limitations, and present findings objectively with proper attribution.",
+                    "source": "research_methodology",
+                    "metadata": {"category": "research"}
                 }
             ]
         }

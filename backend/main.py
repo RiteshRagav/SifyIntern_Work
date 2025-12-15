@@ -1,5 +1,5 @@
 """
-FastAPI main application for the multi-agent storyboard system.
+FastAPI main application for the ThinkerLLM multi-agent AI system.
 Provides REST API, WebSocket, and SSE endpoints for agent orchestration.
 """
 
@@ -64,8 +64,54 @@ active_connections: Dict[str, WebSocket] = {}
 sse_connections: Dict[str, asyncio.Queue] = {}
 # Store running tasks
 running_tasks: Dict[str, asyncio.Task] = {}
-# Store pending plans awaiting approval
+# Store pending plans awaiting approval (in-memory cache)
 pending_plans: Dict[str, Dict] = {}
+
+
+async def save_pending_plan(session_id: str, plan_data: Dict):
+    """Save pending plan to MongoDB for persistence across restarts."""
+    mongodb = await get_mongodb_service()
+    # Store in memory
+    pending_plans[session_id] = plan_data
+    # Also persist to MongoDB
+    try:
+        await mongodb.db.pending_plans.update_one(
+            {"session_id": session_id},
+            {"$set": {"session_id": session_id, "plan_data": plan_data}},
+            upsert=True
+        )
+    except Exception as e:
+        print(f"[WARN] Could not persist pending plan: {e}")
+
+
+async def get_pending_plan(session_id: str) -> Optional[Dict]:
+    """Get pending plan from memory or MongoDB."""
+    # Check memory first
+    if session_id in pending_plans:
+        return pending_plans[session_id]
+    # Try MongoDB
+    try:
+        mongodb = await get_mongodb_service()
+        doc = await mongodb.db.pending_plans.find_one({"session_id": session_id})
+        if doc:
+            plan_data = doc.get("plan_data", {})
+            # Cache in memory
+            pending_plans[session_id] = plan_data
+            return plan_data
+    except Exception as e:
+        print(f"[WARN] Could not load pending plan from MongoDB: {e}")
+    return None
+
+
+async def delete_pending_plan(session_id: str):
+    """Delete pending plan from memory and MongoDB."""
+    if session_id in pending_plans:
+        del pending_plans[session_id]
+    try:
+        mongodb = await get_mongodb_service()
+        await mongodb.db.pending_plans.delete_one({"session_id": session_id})
+    except Exception as e:
+        print(f"[WARN] Could not delete pending plan: {e}")
 
 
 @asynccontextmanager
@@ -96,7 +142,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
-    description="Multi-agent storyboard generation system with real-time streaming",
+    description="ThinkerLLM - Multi-agent AI assistant with PreAct planning, ReAct execution, and ReFlect validation",
     lifespan=lifespan
 )
 
@@ -232,9 +278,8 @@ async def generate_preact_plan(request: PreActPlanRequest):
     # Generate Mermaid diagram
     mermaid_diagram = generate_mermaid_diagram(context.master_plan, effective_domain)
     
-    # Store pending plan with all metadata
-    pending_plans[session.session_id] = {
-        "context": context,
+    # Store pending plan with all metadata (persisted to MongoDB)
+    plan_storage = {
         "master_plan": context.master_plan.model_dump() if context.master_plan else None,
         "reasoning_plan": reasoning_plan,
         "metadata": context.metadata,
@@ -245,6 +290,7 @@ async def generate_preact_plan(request: PreActPlanRequest):
         "query": request.query,
         "created_at": datetime.utcnow().isoformat()
     }
+    await save_pending_plan(session.session_id, plan_storage)
     
     # Build response with reasoning plan
     response_plan = {
@@ -295,13 +341,23 @@ async def refine_preact_plan(request: PlanRefineRequest):
     2. Provide additional instructions
     3. Chat with the AI to optimize the plan
     """
-    # Get the pending plan
-    if request.session_id not in pending_plans:
+    # Get the pending plan (from memory or MongoDB)
+    pending = await get_pending_plan(request.session_id)
+    if not pending:
         raise HTTPException(status_code=404, detail="No pending plan found for this session")
     
-    pending = pending_plans[request.session_id]
     original_plan = pending.get("reasoning_plan", {})
-    context = pending.get("context")
+    
+    # Reconstruct context from stored data
+    from models.agent_models import AgentContext
+    context = AgentContext(
+        session_id=request.session_id,
+        domain=pending.get("domain", "general"),
+        query=pending.get("query", "")
+    )
+    # Restore metadata
+    if pending.get("metadata"):
+        context.metadata.update(pending["metadata"])
     
     if not context:
         raise HTTPException(status_code=400, detail="Invalid plan context")
@@ -347,15 +403,17 @@ async def refine_preact_plan(request: PlanRefineRequest):
     
     refined_plan["chat_history"] = chat_history
     
-    # Update pending plan
-    pending_plans[request.session_id] = {
+    # Update pending plan (persisted to MongoDB)
+    new_refinement_count = pending.get("refinement_count", 0) + 1
+    updated_plan = {
         **pending,
         "reasoning_plan": refined_plan,
         "mermaid": mermaid_diagram or pending.get("mermaid"),
         "events": events,
         "is_refined": True,
-        "refinement_count": pending.get("refinement_count", 0) + 1
+        "refinement_count": new_refinement_count
     }
+    await save_pending_plan(request.session_id, updated_plan)
     
     # Build response plan
     response_plan = {
@@ -381,7 +439,7 @@ async def refine_preact_plan(request: PlanRefineRequest):
         "step_count": len(refined_plan.get("steps", [])),
         "chat_history": chat_history,
         "is_refined": True,
-        "refinement_count": pending_plans[request.session_id].get("refinement_count", 1),
+        "refinement_count": new_refinement_count,
         "message": "Plan refined based on your feedback. Review and approve to start execution."
     }
 
@@ -405,45 +463,45 @@ graph TD
 graph TD
     subgraph PreAct["🎯 PreAct Planning"]
         A[📋 Domain: {domain}] --> B[🔍 RAG Knowledge Retrieval]
-        B --> C[📝 Master Plan Generation]
-        C --> D[👤 Character Definition]
-        D --> E[🎨 Visual Style Setup]
+        B --> C[📝 Plan Generation]
+        C --> D[📊 Requirements Analysis]
+        D --> E[🎨 Strategy Setup]
     end
     
-    subgraph Scenes["🎬 Scene Pipeline"]
+    subgraph Steps["📝 Execution Steps"]
 """
     
-    # Add scene nodes
-    for i, scene in enumerate(master_plan.scene_outline[:6]):
-        scene_short = scene[:30] + "..." if len(scene) > 30 else scene
-        diagram += f'        S{i+1}["Scene {i+1}: {scene_short}"]\n'
+    # Add step nodes
+    for i, step in enumerate(master_plan.scene_outline[:6]):
+        step_short = step[:30] + "..." if len(step) > 30 else step
+        diagram += f'        S{i+1}["Step {i+1}: {step_short}"]\n'
     
-    # Connect scenes
-    scene_count = min(len(master_plan.scene_outline), 6)
-    if scene_count > 0:
+    # Connect steps
+    step_count = min(len(master_plan.scene_outline), 6)
+    if step_count > 0:
         diagram += f'        E --> S1\n'
-        for i in range(1, scene_count):
+        for i in range(1, step_count):
             diagram += f'        S{i} --> S{i+1}\n'
-        diagram += f'        S{scene_count} --> F\n'
+        diagram += f'        S{step_count} --> F\n'
     else:
         diagram += f'        E --> F\n'
     
     diagram += """    end
     
-    subgraph ReAct["⚡ ReAct Generation"]
+    subgraph ReAct["⚡ ReAct Execution"]
         F[🧠 Reasoning Loop]
-        F --> G[📖 Scene Generation]
+        F --> G[📖 Content Generation]
         G --> H[💾 TME Memory Update]
     end
     
     subgraph ReFlect["🔄 ReFlect Validation"]
-        H --> I[✅ Coherence Check]
+        H --> I[✅ Quality Check]
         I --> J[📊 Quality Score]
-        J --> K[✨ Final Storyboard]
+        J --> K[✨ Final Output]
     end
     
     style PreAct fill:#e3f2fd
-    style Scenes fill:#f3e5f5
+    style Steps fill:#f3e5f5
     style ReAct fill:#e8f5e9
     style ReFlect fill:#fff3e0
 """
@@ -461,7 +519,10 @@ async def execute_plan(request: ExecutePlanRequest):
     """
     session_id = request.session_id
     
-    if session_id not in pending_plans:
+    # Get plan from memory or MongoDB (survives server restarts)
+    plan_data = await get_pending_plan(session_id)
+    
+    if not plan_data:
         raise HTTPException(
             status_code=404,
             detail="No pending plan found for this session. Generate a plan first."
@@ -469,10 +530,8 @@ async def execute_plan(request: ExecutePlanRequest):
     
     if not request.approved:
         # Remove the pending plan
-        del pending_plans[session_id]
+        await delete_pending_plan(session_id)
         return {"status": "cancelled", "message": "Plan execution cancelled."}
-    
-    plan_data = pending_plans[session_id]
     
     # Create SSE queue for this session BEFORE starting the task
     print(f"[EXECUTE] Creating SSE queue for session {session_id}")
@@ -536,7 +595,7 @@ async def execute_agent_pipeline(session_id: str, plan_data: Dict):
             content="Starting execution of approved plan..."
         ))
         
-        # Phase 2: ReAct Scene Generation
+        # Phase 2: ReAct Content Generation
         print(f"[PIPELINE] Starting ReAct phase...")
         await emit_event(queue, session_id, AgentEvent(
             agent=AgentName.REACT,
@@ -633,9 +692,8 @@ async def execute_agent_pipeline(session_id: str, plan_data: Dict):
         ))
         await mongodb.update_session(session_id, {"status": "error"})
     finally:
-        # Cleanup
-        if session_id in pending_plans:
-            del pending_plans[session_id]
+        # Cleanup (remove from memory and MongoDB)
+        await delete_pending_plan(session_id)
         if session_id in running_tasks:
             del running_tasks[session_id]
 
@@ -833,7 +891,7 @@ async def direct_chat(request: DirectChatRequest):
     Features:
     - Auto-detects domain from query if not provided
     - Works as a normal chatbot for general questions
-    - Generates storyboards only when explicitly requested
+    - Generates structured content only when explicitly requested
     """
     from services.direct_chat import get_direct_chat_service
     
@@ -898,10 +956,17 @@ async def websocket_direct_chat(websocket: WebSocket, session_id: str):
         full_response = ""
         chunk_count = 0
         
-        async for chunk in direct_service.generate(query=query, domain=domain, stream=True):
-            full_response += chunk
-            chunk_count += 1
-            await websocket.send_json({"type": "chunk", "content": chunk})
+        try:
+            async for chunk in direct_service.generate(query=query, domain=domain, stream=True):
+                full_response += chunk
+                chunk_count += 1
+                await websocket.send_json({"type": "chunk", "content": chunk})
+        except Exception as send_error:
+            # Client disconnected during streaming - graceful exit
+            if "ClientDisconnected" in str(type(send_error).__name__) or "ConnectionClosed" in str(send_error):
+                print(f"[DIRECT_WS] Client disconnected during streaming: {session_id}")
+                return
+            raise send_error
         
         print(f"[DIRECT_WS] Generated {chunk_count} chunks, total length: {len(full_response)}")
         
@@ -1083,7 +1148,7 @@ async def run_agent_pipeline_ws(
         await send_ws_event(websocket, mongodb, session_id, AgentEvent(
             agent=AgentName.REACT,
             event=AgentEventType.STATUS,
-            content="⚡ Starting ReAct scene generation..."
+            content="⚡ Starting ReAct content generation..."
         ))
         
         async for event in react_agent.run(context):

@@ -77,9 +77,229 @@ DOMAIN_CAPABILITIES = {
     "default": ["content_structure", "quality_guidelines", "process_flow", "output_standards"],
 }
 
+# Domain-specific deep dive focus areas for intensive analysis
+DOMAIN_DEEP_DIVE = {
+    "education": {
+        "focus_areas": [
+            "Learning objectives (what will learners be able to DO after?)",
+            "Assessment strategy (how to measure learning?)",
+            "Engagement methods (activities, interactivity, gamification)",
+            "Prerequisite mapping (what must learners already know?)",
+            "Progression design (beginner → intermediate → advanced)",
+            "Content chunking (optimal module/lesson length)",
+            "Practice opportunities (exercises, labs, projects)",
+            "Feedback mechanisms (how learners know they're on track)"
+        ],
+        "key_questions": [
+            "What are the specific, measurable learning outcomes?",
+            "What prior knowledge is assumed?",
+            "What assessment types are appropriate (quiz, project, portfolio)?",
+            "What's the optimal learning path progression?"
+        ],
+        "success_metrics": [
+            "Learner can demonstrate skill X",
+            "Knowledge retention after Y weeks",
+            "Completion rate of modules",
+            "Assessment pass rates"
+        ]
+    },
+    "software": {
+        "focus_areas": [
+            "Architecture decisions (monolith vs microservices, patterns)",
+            "Technology stack (languages, frameworks, databases)",
+            "API design (REST, GraphQL, contracts)",
+            "Testing strategy (unit, integration, e2e coverage)",
+            "Security considerations (auth, data protection, OWASP)",
+            "Performance requirements (latency, throughput, scale)",
+            "Deployment strategy (CI/CD, environments, rollback)",
+            "Observability (logging, monitoring, alerting)"
+        ],
+        "key_questions": [
+            "What are the non-functional requirements (performance, security)?",
+            "What's the expected scale and growth?",
+            "What existing systems need integration?",
+            "What's the team's tech stack expertise?"
+        ],
+        "success_metrics": [
+            "Code coverage percentage",
+            "Response time under load",
+            "Deployment frequency",
+            "Mean time to recovery"
+        ]
+    },
+    "finance": {
+        "focus_areas": [
+            "Risk assessment (market, credit, operational)",
+            "Regulatory compliance (SOX, Basel, local regulations)",
+            "Financial modeling (forecasts, scenarios, sensitivity)",
+            "Audit trail requirements",
+            "Stakeholder reporting needs",
+            "Data accuracy and validation",
+            "Historical trend analysis",
+            "Benchmark comparisons"
+        ],
+        "key_questions": [
+            "What regulatory frameworks apply?",
+            "What's the risk tolerance level?",
+            "Who are the key stakeholders for reporting?",
+            "What's the time horizon for analysis?"
+        ],
+        "success_metrics": [
+            "Compliance audit pass",
+            "Forecast accuracy",
+            "Risk-adjusted returns",
+            "Stakeholder satisfaction"
+        ]
+    },
+    "sales": {
+        "focus_areas": [
+            "Sales methodology (consultative, SPIN, challenger)",
+            "Pipeline management (stages, velocity, conversion)",
+            "Objection handling frameworks",
+            "Competitive positioning",
+            "Value proposition articulation",
+            "Customer segmentation",
+            "Closing techniques",
+            "Account management strategies"
+        ],
+        "key_questions": [
+            "What's the average deal size and sales cycle?",
+            "What are the primary customer objections?",
+            "Who are the main competitors?",
+            "What's the current conversion rate?"
+        ],
+        "success_metrics": [
+            "Win rate improvement",
+            "Average deal size",
+            "Sales cycle length",
+            "Customer acquisition cost"
+        ]
+    },
+    "marketing": {
+        "focus_areas": [
+            "Brand positioning and messaging",
+            "Target audience personas",
+            "Channel strategy (digital, traditional, hybrid)",
+            "Content strategy and calendar",
+            "Campaign measurement (KPIs, attribution)",
+            "Competitive analysis",
+            "Customer journey mapping",
+            "Budget allocation"
+        ],
+        "key_questions": [
+            "Who is the ideal customer profile?",
+            "What's the primary marketing objective (awareness, leads, conversion)?",
+            "What channels have proven most effective?",
+            "What's the budget range?"
+        ],
+        "success_metrics": [
+            "Brand awareness lift",
+            "Lead generation volume",
+            "Conversion rate",
+            "Customer acquisition cost"
+        ]
+    },
+    "hr": {
+        "focus_areas": [
+            "Policy framework compliance",
+            "Employee lifecycle management",
+            "Performance management systems",
+            "Compensation and benefits structure",
+            "Training and development programs",
+            "Employee engagement strategies",
+            "Diversity and inclusion initiatives",
+            "Succession planning"
+        ],
+        "key_questions": [
+            "What's the company size and structure?",
+            "What are the current HR pain points?",
+            "What compliance requirements apply?",
+            "What's the organizational culture?"
+        ],
+        "success_metrics": [
+            "Employee satisfaction score",
+            "Retention rate",
+            "Time to fill positions",
+            "Training completion rates"
+        ]
+    },
+    "healthcare": {
+        "focus_areas": [
+            "Clinical protocols and guidelines",
+            "Patient safety considerations",
+            "HIPAA and privacy compliance",
+            "Evidence-based practice integration",
+            "Care coordination workflows",
+            "Quality metrics (HEDIS, CMS stars)",
+            "Documentation requirements",
+            "Interdisciplinary communication"
+        ],
+        "key_questions": [
+            "What clinical specialty or setting?",
+            "What are the key patient populations?",
+            "What quality measures apply?",
+            "What EHR/systems are in use?"
+        ],
+        "success_metrics": [
+            "Patient outcomes improvement",
+            "Compliance audit scores",
+            "Patient satisfaction",
+            "Readmission rates"
+        ]
+    },
+    "cloud": {
+        "focus_areas": [
+            "Infrastructure patterns (IaC, containers, serverless)",
+            "Security architecture (IAM, encryption, network)",
+            "Cost optimization strategies",
+            "Disaster recovery and business continuity",
+            "Multi-cloud/hybrid considerations",
+            "Observability and monitoring",
+            "Compliance and governance",
+            "Migration strategies"
+        ],
+        "key_questions": [
+            "What cloud provider(s) are in use or preferred?",
+            "What are the compliance requirements?",
+            "What's the current infrastructure state?",
+            "What's the budget for cloud spend?"
+        ],
+        "success_metrics": [
+            "Uptime/availability percentage",
+            "Cost per transaction/user",
+            "Mean time to recovery",
+            "Security incident count"
+        ]
+    },
+    "default": {
+        "focus_areas": [
+            "Clear objective definition",
+            "Stakeholder identification",
+            "Resource requirements",
+            "Timeline considerations",
+            "Quality standards",
+            "Risk identification",
+            "Success measurement",
+            "Communication plan"
+        ],
+        "key_questions": [
+            "What's the primary objective?",
+            "Who are the key stakeholders?",
+            "What resources are available?",
+            "What does success look like?"
+        ],
+        "success_metrics": [
+            "Objective achieved",
+            "Stakeholder satisfaction",
+            "On-time delivery",
+            "Quality standards met"
+        ]
+    }
+}
+
 
 class ReasoningStep:
-    """A single step in the reasoning plan."""
+    """A single step in the reasoning plan with rich metadata."""
     
     def __init__(
         self,
@@ -87,13 +307,24 @@ class ReasoningStep:
         title: str,
         description: str,
         expected_output: str,
-        dependencies: List[int] = None
+        dependencies: List[int] = None,
+        sub_steps: List[str] = None,
+        estimated_effort: str = "15min",
+        validation_criteria: List[str] = None,
+        tools_needed: List[str] = None,
+        priority: str = "important"
     ):
         self.step_number = step_number
         self.title = title
         self.description = description
         self.expected_output = expected_output
         self.dependencies = dependencies or []
+        # Enhanced fields for intensive planning
+        self.sub_steps = sub_steps or []
+        self.estimated_effort = estimated_effort  # "5min", "15min", "30min", "1hr", "2hr+"
+        self.validation_criteria = validation_criteria or []
+        self.tools_needed = tools_needed or ["GENERATE"]
+        self.priority = priority  # "critical", "important", "optional"
     
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -101,12 +332,17 @@ class ReasoningStep:
             "title": self.title,
             "description": self.description,
             "expected_output": self.expected_output,
-            "dependencies": self.dependencies
+            "dependencies": self.dependencies,
+            "sub_steps": self.sub_steps,
+            "estimated_effort": self.estimated_effort,
+            "validation_criteria": self.validation_criteria,
+            "tools_needed": self.tools_needed,
+            "priority": self.priority
         }
 
 
 class ClarificationQuestion:
-    """A clarification question for the user to refine the plan."""
+    """A contextual clarification question for the user to refine the plan."""
     
     def __init__(
         self,
@@ -114,13 +350,17 @@ class ClarificationQuestion:
         question: str,
         question_type: str = "boolean",  # "boolean", "choice", "text"
         options: List[str] = None,
-        default: str = None
+        default: str = None,
+        priority: str = "medium",  # "high", "medium", "low"
+        reason: str = None  # Why this question matters
     ):
         self.id = id
         self.question = question
         self.question_type = question_type
         self.options = options or []
         self.default = default
+        self.priority = priority
+        self.reason = reason or "Helps clarify requirements"
     
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -128,12 +368,14 @@ class ClarificationQuestion:
             "question": self.question,
             "type": self.question_type,
             "options": self.options,
-            "default": self.default
+            "default": self.default,
+            "priority": self.priority,
+            "reason": self.reason
         }
 
 
 class ReasoningPlan:
-    """A structured reasoning plan created by PreAct."""
+    """A structured reasoning plan created by PreAct with deep analysis."""
     
     def __init__(
         self,
@@ -149,7 +391,13 @@ class ReasoningPlan:
         domain_capabilities: List[str] = None,
         template_id: str = None,
         clarification_questions: List[ClarificationQuestion] = None,
-        chat_history: List[Dict] = None
+        chat_history: List[Dict] = None,
+        # Deep analysis fields
+        deep_analysis: Dict[str, Any] = None,
+        requirements: Dict[str, Any] = None,
+        risks_and_assumptions: Dict[str, Any] = None,
+        strategy: Dict[str, Any] = None,
+        estimated_total_effort: str = None
     ):
         self.title = title
         self.task_understanding = task_understanding
@@ -167,6 +415,40 @@ class ReasoningPlan:
         # Chat/refinement fields
         self.clarification_questions = clarification_questions or []
         self.chat_history = chat_history or []
+        # Deep analysis fields for intensive planning
+        self.deep_analysis = deep_analysis or {
+            "audience": {"primary": "General", "skill_level": "intermediate", "prerequisites": [], "goals": []},
+            "stakeholders": [],
+            "context": "",
+            "motivation": ""
+        }
+        self.requirements = requirements or {
+            "explicit": [],
+            "implicit": [],
+            "out_of_scope": []
+        }
+        self.risks_and_assumptions = risks_and_assumptions or {
+            "assumptions": [],
+            "risks": [],
+            "mitigations": []
+        }
+        self.strategy = strategy or {
+            "alternatives_considered": [],
+            "selected_approach": "",
+            "rationale": ""
+        }
+        self.estimated_total_effort = estimated_total_effort or self._calculate_total_effort()
+    
+    def _calculate_total_effort(self) -> str:
+        """Calculate total effort from step estimates."""
+        effort_map = {"5min": 5, "15min": 15, "30min": 30, "1hr": 60, "2hr+": 120}
+        total_minutes = sum(effort_map.get(s.estimated_effort, 15) for s in self.steps)
+        if total_minutes < 60:
+            return f"{total_minutes}min"
+        elif total_minutes < 120:
+            return "1-2 hours"
+        else:
+            return f"{total_minutes // 60}+ hours"
     
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -186,9 +468,16 @@ class ReasoningPlan:
             # Chat/refinement fields
             "clarification_questions": [q.to_dict() for q in self.clarification_questions],
             "chat_history": self.chat_history,
+            # Deep analysis fields
+            "deep_analysis": self.deep_analysis,
+            "requirements": self.requirements,
+            "risks_and_assumptions": self.risks_and_assumptions,
+            "strategy": self.strategy,
+            "estimated_total_effort": self.estimated_total_effort,
             "metadata": {
-                "generated_by": "thinker-llm-preact",
-                "includes_instructional_designer": "Instructional Designer" in self.domain_skills
+                "generated_by": "thinker-llm-preact-v2",
+                "includes_instructional_designer": "Instructional Designer" in self.domain_skills,
+                "analysis_depth": "intensive"
             }
         }
 
@@ -212,72 +501,148 @@ class PreActAgent(BaseAgent):
     This is the THINKER component - adding thinking capacity to non-thinking LLMs.
     """
     
-    SYSTEM_PROMPT = """You are PreAct, the THINKER component of ThinkerLLM.
+    SYSTEM_PROMPT = """You are PreAct, the THINKER component of ThinkerLLM - an advanced planning agent.
 
-Your role is to add structured thinking capacity to any request. You always THINK BEFORE ACTING.
+Your role is to perform DEEP, MULTI-PHASE ANALYSIS before creating any plan. You always THINK INTENSIVELY BEFORE ACTING.
 
-Before answering any request, you:
-1. DETECT the domain from the user's query
-2. CREATE a structured reasoning plan
-3. IDENTIFY domain-specific skills needed (always include "Instructional Designer")
-4. DEFINE unique capability keys for the domain
-5. BREAK DOWN the task into logical steps
-6. ASK clarifying questions to optimize the plan
+## CRITICAL: TASK TYPE DETECTION
 
-Your plan should enable:
-- Clear understanding of the request
-- Domain-specific template generation
-- Step-by-step execution by ReAct agent
-- Validation by ReFlect agent
+FIRST determine what the user ACTUALLY wants:
+- If they ask a QUESTION → Plan to ANSWER the question (not create a video about it)
+- If they ask for ANALYSIS → Plan to CREATE analysis content (not a video)
+- If they ask for a COURSE → Plan to CREATE course content (lessons, exercises)
+- If they ask for a GUIDE → Plan to CREATE a guide document
+- ONLY if they explicitly say "video", "storyboard", "animation", "film" → Plan video content
 
-Output your reasoning plan in this JSON format:
+DO NOT default to video/storyboard production. This is a GENERAL AI assistant, not a video production tool.
+
+## ANALYSIS PHASES (Execute ALL phases before planning)
+
+### PHASE 1: CONTEXT ANALYSIS
+- WHAT TYPE of output does the user actually want? (document, analysis, course, guide, answer, etc.)
+- WHO is the target audience? (skill level, background, goals)
+- WHAT stakeholders are involved or affected?
+- WHY is this being requested? (underlying motivation)
+
+### PHASE 2: REQUIREMENTS EXTRACTION  
+- EXPLICIT requirements (directly stated in query)
+- IMPLICIT requirements (inferred from context)
+- PREREQUISITES (what must exist before starting)
+- DEPENDENCIES (external factors, tools, knowledge needed)
+
+### PHASE 3: CONSTRAINTS & RISKS
+- TIME constraints (deadlines, duration limits)
+- RESOURCE constraints (budget, tools, access)
+- QUALITY constraints (standards, compliance)
+- RISKS (what could go wrong, edge cases)
+- ASSUMPTIONS (what are we assuming to be true)
+
+### PHASE 4: STRATEGY SELECTION
+- ALTERNATIVE approaches considered
+- TRADE-OFFS between approaches
+- SELECTED strategy and WHY
+- SUCCESS metrics (measurable outcomes)
+
+## OUTPUT FORMAT
+
+Output your comprehensive reasoning plan in this JSON format:
 {
-    "title": "Brief title for this task",
-    "detected_domain": "The domain detected from the query (e.g., healthcare, finance, hr, cloud, software, sales, education, marketing, legal, manufacturing)",
-    "task_understanding": "What the user is asking for, in your own words",
-    "approach": "High-level description of how you'll tackle this",
+    "title": "Descriptive title for this task",
+    "detected_domain": "healthcare/finance/hr/cloud/software/sales/education/marketing/legal/manufacturing",
+    
+    "deep_analysis": {
+        "audience": {
+            "primary": "Main target audience description",
+            "skill_level": "beginner/intermediate/advanced/mixed",
+            "prerequisites": ["Required knowledge or skills"],
+            "goals": ["What they want to achieve"]
+        },
+        "stakeholders": ["List of stakeholders affected"],
+        "context": "When/where/how this will be used",
+        "motivation": "Why this is being requested"
+    },
+    
+    "requirements": {
+        "explicit": ["Directly stated requirements"],
+        "implicit": ["Inferred requirements"],
+        "out_of_scope": ["What this does NOT include"]
+    },
+    
+    "risks_and_assumptions": {
+        "assumptions": ["Things we assume to be true"],
+        "risks": ["Potential issues or challenges"],
+        "mitigations": ["How we'll address risks"]
+    },
+    
+    "strategy": {
+        "alternatives_considered": [
+            {"approach": "Alternative 1", "pros": ["..."], "cons": ["..."]},
+            {"approach": "Alternative 2", "pros": ["..."], "cons": ["..."]}
+        ],
+        "selected_approach": "The chosen strategy",
+        "rationale": "Why this approach was selected"
+    },
+    
+    "task_understanding": "Comprehensive understanding of what the user needs",
+    "approach": "Detailed description of the execution strategy",
+    
     "domain_skills": ["Instructional Designer", "...other domain-specific skills..."],
-    "domain_capabilities": ["unique_key_1", "unique_key_2", "...domain-specific capability keys..."],
+    "domain_capabilities": ["unique_capability_key_1", "unique_capability_key_2"],
+    
     "steps": [
         {
             "step_number": 1,
             "title": "Step title",
-            "description": "What you'll do in this step",
-            "expected_output": "What this step produces",
-            "dependencies": []
+            "description": "Detailed description of what this step does",
+            "expected_output": "Specific deliverable from this step",
+            "dependencies": [],
+            "sub_steps": ["Detailed sub-task 1", "Detailed sub-task 2", "Detailed sub-task 3"],
+            "estimated_effort": "5min/15min/30min/1hr/2hr+",
+            "validation_criteria": ["How to verify this step is complete"],
+            "tools_needed": ["GENERATE", "SEARCH", "ANALYZE"],
+            "priority": "critical/important/optional"
         }
     ],
-    "constraints": ["Any limitations or rules to follow"],
-    "success_criteria": ["How we'll know the task is complete"],
+    
+    "constraints": ["Specific limitations or rules"],
+    "success_criteria": ["Measurable outcomes that define success"],
     "estimated_complexity": "simple/moderate/complex",
+    "estimated_total_effort": "Total time estimate",
+    
     "clarification_questions": [
         {
             "id": "q1",
-            "question": "A specific question to clarify requirements",
-            "type": "choice",
+            "question": "Specific probing question based on gaps identified",
+            "type": "choice/boolean/text",
             "options": ["Option A", "Option B", "Option C"],
-            "default": "Option A"
-        },
-        {
-            "id": "q2", 
-            "question": "Another clarifying question",
-            "type": "boolean",
-            "default": "yes"
+            "default": "Option A",
+            "priority": "high/medium/low",
+            "reason": "Why this question matters"
         }
     ]
 }
 
-IMPORTANT RULES:
+## CRITICAL RULES
+
 1. "Instructional Designer" MUST be in domain_skills for ALL domains
 2. domain_capabilities must be UNIQUE keys specific to the detected domain
-3. Each step should be actionable and produce measurable output
-4. Include at least 3-5 steps for proper reasoning chain
-5. ALWAYS include 2-3 clarification_questions to help refine the plan
-   - Questions should be specific and relevant to the task
-   - Use "choice" type for multiple options, "boolean" for yes/no, "text" for open-ended
-   - Provide sensible defaults
+3. EVERY step must have sub_steps (at least 2-3 detailed sub-tasks)
+4. EVERY step must have validation_criteria (how to verify completion)
+5. Include 5-8 steps for thorough execution planning
+6. Generate 3-5 SMART clarification questions that probe gaps in the request
+7. Questions should be contextual and reveal hidden requirements
+8. Include risk analysis and mitigation strategies
+9. Consider alternative approaches before selecting strategy
 
-Be specific and thorough. This plan guides the entire generation process."""
+## QUESTION TYPES
+
+- **Scope clarifiers**: "Should this cover X or just Y?"
+- **Depth probers**: "How detailed should the Z section be?"
+- **Constraint discoverers**: "Are there specific time/resource limits?"
+- **Preference elicitors**: "Do you prefer approach A (faster) or B (more thorough)?"
+- **Assumption validators**: "I'm assuming X - is this correct?"
+
+Be THOROUGH and ANALYTICAL. This plan guides the entire generation process."""
 
     @property
     def name(self) -> AgentName:
@@ -315,6 +680,136 @@ Be specific and thorough. This plan guides the entire generation process."""
         Get unique capability keys for a domain.
         """
         return DOMAIN_CAPABILITIES.get(domain, DOMAIN_CAPABILITIES["default"])
+    
+    # Analysis phases for intensive planning
+    ANALYSIS_PHASES = {
+        "context": "Analyze context, audience, and stakeholders",
+        "requirements": "Extract explicit and implicit requirements",
+        "constraints": "Identify limitations, risks, and dependencies",
+        "strategy": "Evaluate approaches and select optimal strategy"
+    }
+    
+    async def _perform_deep_analysis(
+        self, 
+        context: AgentContext, 
+        domain: str,
+        domain_context: str = ""
+    ) -> Dict[str, Any]:
+        """
+        Perform intensive pre-planning analysis before creating the execution plan.
+        Uses domain-specific deep dive focus areas for thorough analysis.
+        Returns structured analysis data for plan generation.
+        """
+        # Get domain-specific focus areas
+        deep_dive_info = DOMAIN_DEEP_DIVE.get(domain, DOMAIN_DEEP_DIVE["default"])
+        focus_areas = deep_dive_info.get("focus_areas", [])
+        key_questions = deep_dive_info.get("key_questions", [])
+        success_metrics = deep_dive_info.get("success_metrics", [])
+        
+        analysis_prompt = f"""Perform INTENSIVE domain-specific analysis for this request. Output ONLY valid JSON.
+
+## REQUEST
+Domain: {domain}
+Query: {context.query}
+
+## CONTEXT
+{domain_context if domain_context else "No additional context available."}
+
+## DOMAIN-SPECIFIC FOCUS AREAS FOR {domain.upper()}
+Consider these critical aspects in your analysis:
+{chr(10).join(['- ' + fa for fa in focus_areas])}
+
+## KEY DOMAIN QUESTIONS TO ANSWER
+{chr(10).join(['- ' + q for q in key_questions])}
+
+## SUGGESTED SUCCESS METRICS FOR THIS DOMAIN
+{chr(10).join(['- ' + m for m in success_metrics])}
+
+## ANALYSIS REQUIRED
+
+Analyze thoroughly and output this JSON structure:
+{{
+    "audience": {{
+        "primary": "Main target audience",
+        "skill_level": "beginner/intermediate/advanced/mixed",
+        "prerequisites": ["Required knowledge item 1", "Required knowledge item 2"],
+        "goals": ["What they want to achieve"]
+    }},
+    "stakeholders": ["Stakeholder 1", "Stakeholder 2"],
+    "context_of_use": "When/where/how this will be used",
+    "motivation": "Underlying reason for this request",
+    "requirements": {{
+        "explicit": ["Directly stated requirement 1", "Requirement 2"],
+        "implicit": ["Inferred requirement 1", "Inferred requirement 2"],
+        "out_of_scope": ["What this does NOT include"]
+    }},
+    "risks_and_assumptions": {{
+        "assumptions": ["Assumption 1", "Assumption 2"],
+        "risks": ["Potential issue 1", "Challenge 2"],
+        "mitigations": ["How to address risk 1", "Mitigation 2"]
+    }},
+    "strategy": {{
+        "alternatives": [
+            {{"approach": "Option A", "pros": ["Pro 1"], "cons": ["Con 1"]}},
+            {{"approach": "Option B", "pros": ["Pro 1"], "cons": ["Con 1"]}}
+        ],
+        "recommended": "The best approach",
+        "rationale": "Why this approach is best"
+    }},
+    "complexity_factors": ["Factor 1", "Factor 2"],
+    "estimated_effort": "30min/1hr/2hr/4hr+"
+}}
+
+Output ONLY the JSON, no other text."""
+
+        # Generate analysis (optimized for speed: lower tokens, faster response)
+        analysis_response = ""
+        async for chunk in self.llm.generate_stream(
+            prompt=analysis_prompt,
+            system_prompt="You are an expert analyst. Output concise valid JSON only. Be brief but thorough.",
+            temperature=0.3,  # Lower temperature for faster, more focused response
+            max_tokens=1500   # Limit analysis length for speed
+        ):
+            analysis_response += chunk
+        
+        # Parse the analysis
+        try:
+            json_match = re.search(r'\{[\s\S]*\}', analysis_response)
+            if json_match:
+                analysis_data = json.loads(json_match.group())
+                return analysis_data
+        except json.JSONDecodeError:
+            pass
+        
+        # Return default analysis structure if parsing fails
+        return {
+            "audience": {
+                "primary": "General users",
+                "skill_level": "intermediate",
+                "prerequisites": [],
+                "goals": ["Complete the requested task"]
+            },
+            "stakeholders": ["Primary user"],
+            "context_of_use": "Standard use case",
+            "motivation": "User needs assistance with this task",
+            "requirements": {
+                "explicit": [context.query],
+                "implicit": ["Quality output", "Accurate information"],
+                "out_of_scope": []
+            },
+            "risks_and_assumptions": {
+                "assumptions": ["User has basic domain knowledge"],
+                "risks": ["Requirements may need clarification"],
+                "mitigations": ["Ask clarifying questions"]
+            },
+            "strategy": {
+                "alternatives": [],
+                "recommended": "Step-by-step approach",
+                "rationale": "Systematic execution ensures quality"
+            },
+            "complexity_factors": ["Task scope", "Domain complexity"],
+            "estimated_effort": "1hr"
+        }
     
     async def run(self, context: AgentContext) -> AsyncGenerator[AgentEvent, None]:
         """
@@ -373,10 +868,30 @@ Be specific and thorough. This plan guides the entire generation process."""
                 f"Proceeding without additional context: {str(e)[:100]}"
             )
         
-        # Step 3: Generate the reasoning plan with domain-specific info
+        # Step 3: Perform DEEP ANALYSIS before planning
         yield self.create_event(
             AgentEventType.THOUGHT,
-            f"Creating structured plan for {effective_domain} domain..."
+            f"🔍 Phase 1-4: Performing deep analysis (audience, requirements, risks, strategy)..."
+        )
+        
+        deep_analysis = await self._perform_deep_analysis(context, effective_domain, domain_context)
+        
+        # Store analysis in context
+        context.metadata["deep_analysis"] = deep_analysis
+        
+        yield self.create_event(
+            AgentEventType.THOUGHT,
+            f"📊 Analysis Complete:\n"
+            f"• Audience: {deep_analysis.get('audience', {}).get('primary', 'General')}\n"
+            f"• Skill Level: {deep_analysis.get('audience', {}).get('skill_level', 'intermediate')}\n"
+            f"• Risks Identified: {len(deep_analysis.get('risks_and_assumptions', {}).get('risks', []))}\n"
+            f"• Strategy: {deep_analysis.get('strategy', {}).get('recommended', 'Step-by-step')[:50]}..."
+        )
+        
+        # Step 4: Generate the reasoning plan with domain-specific info AND deep analysis
+        yield self.create_event(
+            AgentEventType.THOUGHT,
+            f"📝 Creating intensive execution plan for {effective_domain} domain..."
         )
         
         planning_prompt = self._build_planning_prompt(
@@ -384,7 +899,8 @@ Be specific and thorough. This plan guides the entire generation process."""
             domain_context,
             detected_domain=detected_domain,
             domain_skills=domain_skills,
-            domain_capabilities=domain_capabilities
+            domain_capabilities=domain_capabilities,
+            deep_analysis=deep_analysis
         )
         
         full_response = ""
@@ -676,11 +1192,19 @@ Key changes to incorporate:
         domain_context: str,
         detected_domain: str = "default",
         domain_skills: List[str] = None,
-        domain_capabilities: List[str] = None
+        domain_capabilities: List[str] = None,
+        deep_analysis: Dict[str, Any] = None
     ) -> str:
-        """Build the prompt for generating the reasoning plan with domain-specific info."""
+        """Build the prompt for generating the reasoning plan with domain-specific info and deep analysis."""
         domain_skills = domain_skills or ["Instructional Designer"]
         domain_capabilities = domain_capabilities or []
+        deep_analysis = deep_analysis or {}
+        
+        # Format deep analysis for prompt
+        audience_info = deep_analysis.get("audience", {})
+        requirements_info = deep_analysis.get("requirements", {})
+        risks_info = deep_analysis.get("risks_and_assumptions", {})
+        strategy_info = deep_analysis.get("strategy", {})
         
         return f"""## USER REQUEST
 
@@ -688,9 +1212,41 @@ Key changes to incorporate:
 **Detected Domain:** {detected_domain}
 **Request:** {context.query}
 
+## DEEP ANALYSIS (Pre-computed)
+
+### Audience Analysis
+- **Primary Audience:** {audience_info.get('primary', 'General users')}
+- **Skill Level:** {audience_info.get('skill_level', 'intermediate')}
+- **Prerequisites:** {json.dumps(audience_info.get('prerequisites', []))}
+- **Goals:** {json.dumps(audience_info.get('goals', []))}
+
+### Stakeholders
+{json.dumps(deep_analysis.get('stakeholders', ['Primary user']))}
+
+### Context of Use
+{deep_analysis.get('context_of_use', 'Standard use case')}
+
+### Motivation
+{deep_analysis.get('motivation', 'User needs assistance')}
+
+### Requirements Extracted
+- **Explicit:** {json.dumps(requirements_info.get('explicit', []))}
+- **Implicit:** {json.dumps(requirements_info.get('implicit', []))}
+- **Out of Scope:** {json.dumps(requirements_info.get('out_of_scope', []))}
+
+### Risks & Assumptions
+- **Assumptions:** {json.dumps(risks_info.get('assumptions', []))}
+- **Risks:** {json.dumps(risks_info.get('risks', []))}
+- **Mitigations:** {json.dumps(risks_info.get('mitigations', []))}
+
+### Strategy
+- **Alternatives Considered:** {json.dumps(strategy_info.get('alternatives', []))}
+- **Recommended Approach:** {strategy_info.get('recommended', 'Step-by-step')}
+- **Rationale:** {strategy_info.get('rationale', 'Best for quality output')}
+
 ## DOMAIN-SPECIFIC INFORMATION
 
-**Suggested Skills (include these in your plan):**
+**Required Skills (include these in your plan):**
 {json.dumps(domain_skills, indent=2)}
 
 **Suggested Capability Keys (use as reference for unique keys):**
@@ -701,40 +1257,36 @@ Key changes to incorporate:
 
 ## YOUR TASK
 
-Create a structured reasoning plan for how you will fulfill this request.
+Using the DEEP ANALYSIS above, create an INTENSIVE execution plan.
 
 CRITICAL REQUIREMENTS:
 1. "Instructional Designer" MUST be in your domain_skills list
 2. Generate UNIQUE capability keys specific to {detected_domain} domain
-3. Each step must produce actionable output for ReAct agent
+3. EVERY step must have:
+   - 2-3 detailed sub_steps
+   - estimated_effort (5min/15min/30min/1hr/2hr+)
+   - validation_criteria (how to verify completion)
+   - tools_needed (GENERATE, SEARCH, ANALYZE)
+   - priority (critical/important/optional)
+4. Include 5-8 comprehensive steps
+5. Generate 3-5 CONTEXTUAL clarification questions based on gaps in the analysis
+6. Questions must have priority (high/medium/low) and reason (why it matters)
 
-Think carefully about:
-1. What exactly is the user asking for?
-2. What domain-specific skills are needed?
-3. What unique capability keys should this domain have?
-4. What are the logical steps to accomplish this?
-5. What constraints or requirements should you follow?
-6. What does success look like?
-
-Break the task into clear, actionable steps. Each step should:
-- Have a clear purpose
-- Produce a specific output
-- Build on previous steps if needed
+Each step should:
+- Address specific requirements from the analysis
+- Account for identified risks
+- Target the correct audience level
 - Be executable by the ReAct agent
 
-This plan will guide:
-- ReAct agent for execution
-- ReFlect agent for validation
-- TME for storage
-
-Create your reasoning plan in the JSON format specified."""
+Create your INTENSIVE reasoning plan in the JSON format specified."""
     
     def _parse_reasoning_plan(self, response: str, context: AgentContext) -> ReasoningPlan:
-        """Parse the LLM response into a ReasoningPlan with domain-specific fields."""
+        """Parse the LLM response into a ReasoningPlan with all enhanced fields."""
         # Get domain info from context metadata
         detected_domain = context.metadata.get("detected_domain", "default")
         default_skills = context.metadata.get("domain_skills", ["Instructional Designer"])
         default_capabilities = context.metadata.get("domain_capabilities", [])
+        deep_analysis = context.metadata.get("deep_analysis", {})
         
         # Try to extract JSON
         json_match = re.search(r'\{[\s\S]*\}', response)
@@ -743,6 +1295,7 @@ Create your reasoning plan in the JSON format specified."""
             try:
                 plan_data = json.loads(json_match.group())
                 
+                # Parse steps with enhanced fields
                 steps = []
                 for i, step_data in enumerate(plan_data.get("steps", [])):
                     steps.append(ReasoningStep(
@@ -750,7 +1303,13 @@ Create your reasoning plan in the JSON format specified."""
                         title=step_data.get("title", f"Step {i + 1}"),
                         description=step_data.get("description", ""),
                         expected_output=step_data.get("expected_output", ""),
-                        dependencies=step_data.get("dependencies", [])
+                        dependencies=step_data.get("dependencies", []),
+                        # Enhanced fields
+                        sub_steps=step_data.get("sub_steps", []),
+                        estimated_effort=step_data.get("estimated_effort", "15min"),
+                        validation_criteria=step_data.get("validation_criteria", []),
+                        tools_needed=step_data.get("tools_needed", ["GENERATE"]),
+                        priority=step_data.get("priority", "important")
                     ))
                 
                 # Extract domain-specific fields from LLM response or use defaults
@@ -761,7 +1320,7 @@ Create your reasoning plan in the JSON format specified."""
                 
                 domain_capabilities = plan_data.get("domain_capabilities", default_capabilities)
                 
-                # Parse clarification questions
+                # Parse clarification questions with enhanced fields
                 clarification_questions = []
                 for q_data in plan_data.get("clarification_questions", []):
                     clarification_questions.append(ClarificationQuestion(
@@ -769,12 +1328,22 @@ Create your reasoning plan in the JSON format specified."""
                         question=q_data.get("question", ""),
                         question_type=q_data.get("type", "boolean"),
                         options=q_data.get("options", []),
-                        default=q_data.get("default")
+                        default=q_data.get("default"),
+                        priority=q_data.get("priority", "medium"),
+                        reason=q_data.get("reason", "Helps clarify requirements")
                     ))
                 
-                # Generate default questions if none provided
+                # Generate contextual questions if none provided, using deep analysis
                 if not clarification_questions:
-                    clarification_questions = self._generate_default_questions(context, detected_domain)
+                    clarification_questions = self._generate_contextual_questions(
+                        context, detected_domain, deep_analysis
+                    )
+                
+                # Extract deep analysis fields from response or use pre-computed analysis
+                response_deep_analysis = plan_data.get("deep_analysis", deep_analysis)
+                response_requirements = plan_data.get("requirements", deep_analysis.get("requirements", {}))
+                response_risks = plan_data.get("risks_and_assumptions", deep_analysis.get("risks_and_assumptions", {}))
+                response_strategy = plan_data.get("strategy", deep_analysis.get("strategy", {}))
                 
                 return ReasoningPlan(
                     title=plan_data.get("title", f"{context.domain} Task"),
@@ -787,78 +1356,197 @@ Create your reasoning plan in the JSON format specified."""
                     detected_domain=plan_data.get("detected_domain", detected_domain),
                     domain_skills=domain_skills,
                     domain_capabilities=domain_capabilities,
-                    clarification_questions=clarification_questions
+                    clarification_questions=clarification_questions,
+                    # Enhanced deep analysis fields
+                    deep_analysis=response_deep_analysis,
+                    requirements=response_requirements,
+                    risks_and_assumptions=response_risks,
+                    strategy=response_strategy,
+                    estimated_total_effort=plan_data.get("estimated_total_effort")
                 )
             except json.JSONDecodeError:
                 pass
         
-        # Fallback: Create a default plan
+        # Fallback: Create a default plan with deep analysis
         return self._create_default_plan(context, response)
     
-    def _generate_default_questions(self, context: AgentContext, domain: str) -> List[ClarificationQuestion]:
-        """Generate default clarification questions based on domain and query."""
+    def _generate_contextual_questions(
+        self, 
+        context: AgentContext, 
+        domain: str,
+        deep_analysis: Dict[str, Any] = None
+    ) -> List[ClarificationQuestion]:
+        """
+        Generate SMART contextual clarification questions based on:
+        - Gaps identified in the deep analysis
+        - Domain-specific requirements
+        - Query ambiguities
+        """
         questions = []
+        query_lower = context.query.lower()
+        deep_analysis = deep_analysis or {}
         
-        # Skill level question (common for most domains)
+        # Extract analysis data
+        audience = deep_analysis.get("audience", {})
+        requirements = deep_analysis.get("requirements", {})
+        risks = deep_analysis.get("risks_and_assumptions", {})
+        
+        # ============ SCOPE CLARIFIERS ============
+        # Check for ambiguous scope in query
+        scope_indicators = ["and", "or", "also", "including", "such as", "like"]
+        if any(ind in query_lower for ind in scope_indicators):
+            questions.append(ClarificationQuestion(
+                id="q_scope",
+                question="I noticed multiple elements in your request. Should I cover all of them equally, or prioritize specific aspects?",
+                question_type="choice",
+                options=["Cover all equally", "Focus on the first/main topic", "Let me specify priorities"],
+                default="Cover all equally",
+                priority="high",
+                reason="Clarifies scope to avoid scope creep or missing key elements"
+            ))
+        
+        # ============ AUDIENCE PROBERS ============
+        # If audience skill level is unclear
+        if not audience.get("skill_level") or audience.get("skill_level") == "intermediate":
+            questions.append(ClarificationQuestion(
+                id="q_audience_level",
+                question="What is the expertise level of your target audience?",
+                question_type="choice",
+                options=["Complete beginners (no prior knowledge)", "Some familiarity (basic concepts known)", "Intermediate (comfortable with fundamentals)", "Advanced (looking for deep insights)"],
+                default="Some familiarity (basic concepts known)",
+                priority="high",
+                reason="Determines depth of explanations and assumed prerequisites"
+            ))
+        
+        # ============ DEPTH PROBERS ============
+        if "overview" not in query_lower and "summary" not in query_lower:
+            questions.append(ClarificationQuestion(
+                id="q_depth",
+                question="How comprehensive should the output be?",
+                question_type="choice",
+                options=["Quick overview (key points only)", "Standard depth (balanced)", "Comprehensive (thorough coverage)", "Expert-level (maximum detail)"],
+                default="Standard depth (balanced)",
+                priority="medium",
+                reason="Balances completeness against time and length"
+            ))
+        
+        # ============ DOMAIN-SPECIFIC QUESTIONS ============
+        
+        # Education domain
+        if domain == "education" or any(w in query_lower for w in ["course", "lesson", "tutorial", "training", "curriculum"]):
+            questions.append(ClarificationQuestion(
+                id="q_learning_style",
+                question="What learning approach works best for your audience?",
+                question_type="choice",
+                options=["Theory first, then practice", "Learn by doing (hands-on)", "Case study based", "Mixed approach with examples"],
+                default="Mixed approach with examples",
+                priority="high",
+                reason="Shapes content structure and engagement strategy"
+            ))
+            questions.append(ClarificationQuestion(
+                id="q_assessment",
+                question="Should I include assessments or practice exercises?",
+                question_type="choice",
+                options=["Yes, with quizzes after each section", "Yes, exercises only (no quizzes)", "Just a final assessment", "No assessments needed"],
+                default="Yes, with quizzes after each section",
+                priority="medium",
+                reason="Determines if learner validation is needed"
+            ))
+        
+        # Software/Technical domain
+        elif domain == "software" or any(w in query_lower for w in ["code", "programming", "api", "development", "technical"]):
+            questions.append(ClarificationQuestion(
+                id="q_tech_stack",
+                question="Are there specific technologies or versions I should target?",
+                question_type="text",
+                default="Latest stable versions",
+                priority="high",
+                reason="Ensures code examples and recommendations are compatible"
+            ))
+            questions.append(ClarificationQuestion(
+                id="q_production_ready",
+                question="Should this be production-ready or educational/prototype quality?",
+                question_type="choice",
+                options=["Production-ready (error handling, security, tests)", "Educational (clear but simplified)", "Prototype (quick and functional)"],
+                default="Educational (clear but simplified)",
+                priority="medium",
+                reason="Affects code complexity and completeness"
+            ))
+        
+        # Business/Analysis domain  
+        elif domain in ["finance", "sales", "marketing", "hr"] or any(w in query_lower for w in ["analysis", "strategy", "plan", "report"]):
+            questions.append(ClarificationQuestion(
+                id="q_stakeholders",
+                question="Who is the primary audience for this output?",
+                question_type="choice",
+                options=["Executive leadership (high-level)", "Department managers (tactical)", "Team members (operational)", "External stakeholders (clients/partners)"],
+                default="Department managers (tactical)",
+                priority="high",
+                reason="Adjusts language, detail level, and focus areas"
+            ))
+            questions.append(ClarificationQuestion(
+                id="q_data_support",
+                question="Should I include data, metrics, or examples to support recommendations?",
+                question_type="choice",
+                options=["Yes, with specific numbers/data", "Yes, with general examples", "Just recommendations, no data needed"],
+                default="Yes, with general examples",
+                priority="medium",
+                reason="Determines evidence requirements"
+            ))
+        
+        # ============ CONSTRAINT DISCOVERERS ============
+        # Check for time/resource constraints
+        if len(risks.get("risks", [])) > 0:
+            questions.append(ClarificationQuestion(
+                id="q_constraints",
+                question="Are there any specific constraints I should know about?",
+                question_type="choice",
+                options=["Time-sensitive (need it fast)", "Quality-focused (take time for best result)", "Budget/resource limited", "No specific constraints"],
+                default="Quality-focused (take time for best result)",
+                priority="medium",
+                reason="Balances speed vs thoroughness"
+            ))
+        
+        # ============ ASSUMPTION VALIDATORS ============
+        assumptions = risks.get("assumptions", [])
+        if assumptions and len(assumptions) > 0:
+            # Create a question to validate the top assumption
+            top_assumption = assumptions[0] if assumptions else "standard approach applies"
+            questions.append(ClarificationQuestion(
+                id="q_assumption_check",
+                question=f"I'm assuming: '{top_assumption}'. Is this correct?",
+                question_type="boolean",
+                default="yes",
+                priority="medium",
+                reason="Validates key assumptions before proceeding"
+            ))
+        
+        # ============ FORMAT PREFERENCE ============
         questions.append(ClarificationQuestion(
-            id="q_skill_level",
-            question="What is the target skill level for this content?",
+            id="q_format",
+            question="What format works best for your needs?",
             question_type="choice",
-            options=["Beginner", "Intermediate", "Advanced", "Mixed"],
-            default="Intermediate"
+            options=["Structured document with sections", "Step-by-step guide", "Bullet points and lists", "Narrative/conversational style"],
+            default="Structured document with sections",
+            priority="low",
+            reason="Ensures output matches expected presentation style"
         ))
         
-        # Domain-specific questions
-        if domain == "education" or "course" in context.query.lower():
-            questions.append(ClarificationQuestion(
-                id="q_content_type",
-                question="What type of content delivery do you prefer?",
-                question_type="choice",
-                options=["Theory-focused", "Hands-on projects", "Mixed approach", "Case studies"],
-                default="Mixed approach"
-            ))
-            questions.append(ClarificationQuestion(
-                id="q_include_exercises",
-                question="Should I include practice exercises and quizzes?",
-                question_type="boolean",
-                default="yes"
-            ))
-        elif domain == "software":
-            questions.append(ClarificationQuestion(
-                id="q_code_examples",
-                question="Should I include detailed code examples?",
-                question_type="boolean",
-                default="yes"
-            ))
-            questions.append(ClarificationQuestion(
-                id="q_deployment",
-                question="Should deployment/production considerations be covered?",
-                question_type="boolean",
-                default="yes"
-            ))
-        else:
-            questions.append(ClarificationQuestion(
-                id="q_detail_level",
-                question="What level of detail do you need?",
-                question_type="choice",
-                options=["High-level overview", "Detailed breakdown", "Comprehensive deep-dive"],
-                default="Detailed breakdown"
-            ))
-            questions.append(ClarificationQuestion(
-                id="q_examples",
-                question="Should I include practical examples?",
-                question_type="boolean",
-                default="yes"
-            ))
-        
-        return questions
+        # Limit to 5 most important questions
+        questions.sort(key=lambda q: {"high": 0, "medium": 1, "low": 2}.get(q.priority, 1))
+        return questions[:5]
+    
+    def _generate_default_questions(self, context: AgentContext, domain: str) -> List[ClarificationQuestion]:
+        """Backward compatibility wrapper - calls contextual questions with no analysis."""
+        return self._generate_contextual_questions(context, domain, {})
     
     def _create_default_plan(self, context: AgentContext, raw_response: str) -> ReasoningPlan:
-        """Create a default plan when parsing fails, including domain-specific fields."""
+        """Create a comprehensive default plan when parsing fails."""
         # Get domain info from context metadata
         detected_domain = context.metadata.get("detected_domain", "default")
         domain_skills = context.metadata.get("domain_skills", self._get_domain_skills(detected_domain))
         domain_capabilities = context.metadata.get("domain_capabilities", self._get_domain_capabilities(detected_domain))
+        deep_analysis = context.metadata.get("deep_analysis", {})
         
         # Ensure Instructional Designer is always included
         if "Instructional Designer" not in domain_skills:
@@ -880,71 +1568,170 @@ Create your reasoning plan in the JSON format specified."""
                         title=content.strip()[:50],
                         description=content.strip(),
                         expected_output="Completed step output",
-                        dependencies=[]
+                        dependencies=[],
+                        sub_steps=["Analyze requirements", "Execute task", "Verify output"],
+                        estimated_effort="15min",
+                        validation_criteria=["Output matches requirements"],
+                        tools_needed=["GENERATE"],
+                        priority="important"
                     ))
                 break
         
-        # If no steps found, create domain-aware default steps
+        # If no steps found, create comprehensive default steps
         if not steps:
             steps = [
                 ReasoningStep(
                     step_number=1,
-                    title="Analyze request and domain context",
-                    description=f"Analyze: {context.query} in {detected_domain} domain",
-                    expected_output="Clear understanding of requirements and domain context",
-                    dependencies=[]
+                    title="Deep Analysis & Context Gathering",
+                    description=f"Thoroughly analyze: {context.query} in {detected_domain} domain",
+                    expected_output="Complete understanding of requirements, audience, and constraints",
+                    dependencies=[],
+                    sub_steps=[
+                        "Identify target audience and skill level",
+                        "Extract explicit and implicit requirements",
+                        "Identify constraints and dependencies",
+                        "Document assumptions"
+                    ],
+                    estimated_effort="15min",
+                    validation_criteria=["All requirements documented", "Audience clearly defined"],
+                    tools_needed=["ANALYZE", "SEARCH"],
+                    priority="critical"
                 ),
                 ReasoningStep(
                     step_number=2,
-                    title="Identify domain-specific skills",
-                    description=f"Identify required skills including: {', '.join(domain_skills[:3])}",
-                    expected_output="List of applicable skills for this domain",
-                    dependencies=[1]
+                    title="Strategy Selection & Planning",
+                    description=f"Select optimal approach and plan execution for {detected_domain} domain",
+                    expected_output="Clear execution strategy with alternatives considered",
+                    dependencies=[1],
+                    sub_steps=[
+                        "Evaluate alternative approaches",
+                        "Select best strategy based on requirements",
+                        "Define success metrics",
+                        "Plan resource allocation"
+                    ],
+                    estimated_effort="10min",
+                    validation_criteria=["Strategy documented", "Trade-offs understood"],
+                    tools_needed=["ANALYZE"],
+                    priority="critical"
                 ),
                 ReasoningStep(
                     step_number=3,
-                    title="Generate domain capabilities",
-                    description=f"Generate unique capability keys: {', '.join(domain_capabilities[:3])}",
-                    expected_output="Domain-specific capability structure",
-                    dependencies=[2]
+                    title="Domain Skills Application",
+                    description=f"Apply domain skills: {', '.join(domain_skills[:3])}",
+                    expected_output="Domain-specific content framework",
+                    dependencies=[2],
+                    sub_steps=[
+                        "Apply Instructional Designer principles",
+                        "Incorporate domain expertise",
+                        "Structure content appropriately"
+                    ],
+                    estimated_effort="20min",
+                    validation_criteria=["Instructional design principles applied", "Content structured for audience"],
+                    tools_needed=["GENERATE"],
+                    priority="important"
                 ),
                 ReasoningStep(
                     step_number=4,
-                    title="Create instructional templates",
-                    description="Generate instructional content using Instructional Designer skill",
-                    expected_output="Domain-specific instructional templates",
-                    dependencies=[3]
+                    title="Content Generation",
+                    description="Generate comprehensive content based on analysis and strategy",
+                    expected_output="Complete draft content addressing all requirements",
+                    dependencies=[3],
+                    sub_steps=[
+                        "Generate main content sections",
+                        "Include examples and illustrations",
+                        "Add supporting materials"
+                    ],
+                    estimated_effort="30min",
+                    validation_criteria=["All requirements addressed", "Content is comprehensive"],
+                    tools_needed=["GENERATE", "SEARCH"],
+                    priority="critical"
                 ),
                 ReasoningStep(
                     step_number=5,
-                    title="Compile and validate",
-                    description="Compile all components into final template structure",
-                    expected_output="Complete domain template ready for validation",
-                    dependencies=[4]
+                    title="Quality Validation",
+                    description="Validate output against success criteria and constraints",
+                    expected_output="Validated, quality-assured deliverable",
+                    dependencies=[4],
+                    sub_steps=[
+                        "Check against success criteria",
+                        "Verify constraint compliance",
+                        "Review for accuracy and completeness"
+                    ],
+                    estimated_effort="15min",
+                    validation_criteria=["All success criteria met", "No constraint violations"],
+                    tools_needed=["ANALYZE"],
+                    priority="important"
+                ),
+                ReasoningStep(
+                    step_number=6,
+                    title="Final Compilation",
+                    description="Compile all components into final deliverable format",
+                    expected_output="Complete, polished final output",
+                    dependencies=[5],
+                    sub_steps=[
+                        "Format output appropriately",
+                        "Add finishing touches",
+                        "Prepare for delivery"
+                    ],
+                    estimated_effort="10min",
+                    validation_criteria=["Output is complete", "Format is appropriate"],
+                    tools_needed=["GENERATE"],
+                    priority="important"
                 )
             ]
         
+        # Generate contextual clarification questions
+        clarification_questions = self._generate_contextual_questions(context, detected_domain, deep_analysis)
+        
         return ReasoningPlan(
-            title=f"{detected_domain.replace('_', ' ').title()} Template Generation",
+            title=f"{detected_domain.replace('_', ' ').title()} Intensive Plan",
             task_understanding=context.query,
-            approach=f"Systematic {detected_domain} domain template generation with Instructional Designer skill",
+            approach=f"Systematic {detected_domain} domain execution with intensive 4-phase analysis and Instructional Designer skill",
             steps=steps,
             constraints=[
                 "Instructional Designer skill must be included",
                 "All capability keys must be unique to this domain",
                 "Follow domain-specific best practices",
-                "Ensure accuracy and relevance"
+                "Ensure accuracy and relevance",
+                "Validate against success criteria"
             ],
             success_criteria=[
                 "Request fully addressed",
                 "Instructional Designer skill present",
                 "All capability keys are unique",
-                "Output follows required schema"
+                "Output follows required schema",
+                "Quality validation passed"
             ],
             estimated_complexity="moderate",
             detected_domain=detected_domain,
             domain_skills=domain_skills,
-            domain_capabilities=domain_capabilities
+            domain_capabilities=domain_capabilities,
+            clarification_questions=clarification_questions,
+            # Deep analysis fields
+            deep_analysis=deep_analysis if deep_analysis else {
+                "audience": {"primary": "General users", "skill_level": "intermediate", "prerequisites": [], "goals": []},
+                "stakeholders": ["Primary user"],
+                "context": "Standard use case",
+                "motivation": "Task completion"
+            },
+            requirements={
+                "explicit": [context.query],
+                "implicit": ["Quality output", "Accurate content", "Domain relevance"],
+                "out_of_scope": []
+            },
+            risks_and_assumptions={
+                "assumptions": ["User has basic domain knowledge", "Standard requirements apply"],
+                "risks": ["Requirements may need clarification", "Scope may expand"],
+                "mitigations": ["Ask clarifying questions", "Validate incrementally"]
+            },
+            strategy={
+                "alternatives_considered": [
+                    {"approach": "Quick overview", "pros": ["Fast"], "cons": ["Less thorough"]},
+                    {"approach": "Deep dive", "pros": ["Comprehensive"], "cons": ["Takes longer"]}
+                ],
+                "selected_approach": "Balanced comprehensive approach",
+                "rationale": "Provides thorough coverage while remaining practical"
+            }
         )
     
     def _generate_mermaid(self, plan: ReasoningPlan) -> str:
@@ -980,21 +1767,80 @@ Create your reasoning plan in the JSON format specified."""
         return diagram
     
     def _format_plan_summary(self, plan: ReasoningPlan) -> str:
-        """Format the plan as a readable summary with domain-specific info."""
-        summary = f"""# 🧠 Reasoning Plan: {plan.title}
+        """Format the plan as a comprehensive summary with all analysis fields."""
+        summary = f"""# 🧠 Intensive Reasoning Plan: {plan.title}
 
-## 🎯 Detected Domain
+## 🎯 Domain & Context
 **Domain:** {plan.detected_domain}
+**Complexity:** {plan.estimated_complexity.upper()}
+**Estimated Effort:** {plan.estimated_total_effort}
 **Template ID:** {plan.template_id}
 
-## 📋 My Understanding
+## 📋 Task Understanding
 {plan.task_understanding}
 
-## 🎯 My Approach
+## 🎯 Selected Approach
 {plan.approach}
-
-## 👥 Domain Skills
 """
+
+        # Deep Analysis Section
+        if plan.deep_analysis:
+            audience = plan.deep_analysis.get("audience", {})
+            summary += f"""
+## 👥 Audience Analysis
+- **Target:** {audience.get('primary', 'General users')}
+- **Skill Level:** {audience.get('skill_level', 'intermediate')}
+- **Prerequisites:** {', '.join(audience.get('prerequisites', [])) or 'None specified'}
+- **Goals:** {', '.join(audience.get('goals', [])) or 'Not specified'}
+"""
+            if plan.deep_analysis.get("stakeholders"):
+                summary += f"- **Stakeholders:** {', '.join(plan.deep_analysis.get('stakeholders', []))}\n"
+        
+        # Requirements Section
+        if plan.requirements:
+            summary += "\n## 📋 Requirements Analysis\n"
+            if plan.requirements.get("explicit"):
+                summary += "**Explicit Requirements:**\n"
+                for r in plan.requirements.get("explicit", [])[:5]:
+                    summary += f"  ✓ {r}\n"
+            if plan.requirements.get("implicit"):
+                summary += "**Implicit Requirements:**\n"
+                for r in plan.requirements.get("implicit", [])[:3]:
+                    summary += f"  ○ {r}\n"
+            if plan.requirements.get("out_of_scope"):
+                summary += "**Out of Scope:**\n"
+                for r in plan.requirements.get("out_of_scope", [])[:3]:
+                    summary += f"  ✗ {r}\n"
+        
+        # Risks & Assumptions
+        if plan.risks_and_assumptions:
+            summary += "\n## ⚠️ Risks & Assumptions\n"
+            if plan.risks_and_assumptions.get("assumptions"):
+                summary += "**Assumptions:**\n"
+                for a in plan.risks_and_assumptions.get("assumptions", [])[:3]:
+                    summary += f"  📌 {a}\n"
+            if plan.risks_and_assumptions.get("risks"):
+                summary += "**Risks:**\n"
+                for r in plan.risks_and_assumptions.get("risks", [])[:3]:
+                    summary += f"  ⚡ {r}\n"
+            if plan.risks_and_assumptions.get("mitigations"):
+                summary += "**Mitigations:**\n"
+                for m in plan.risks_and_assumptions.get("mitigations", [])[:3]:
+                    summary += f"  🛡️ {m}\n"
+        
+        # Strategy Section
+        if plan.strategy and plan.strategy.get("alternatives_considered"):
+            summary += "\n## 🎲 Strategy Analysis\n"
+            for alt in plan.strategy.get("alternatives_considered", [])[:2]:
+                if isinstance(alt, dict):
+                    summary += f"**Alternative:** {alt.get('approach', 'N/A')}\n"
+                    summary += f"  Pros: {', '.join(alt.get('pros', []))}\n"
+                    summary += f"  Cons: {', '.join(alt.get('cons', []))}\n"
+            if plan.strategy.get("rationale"):
+                summary += f"\n**Why This Approach:** {plan.strategy.get('rationale')}\n"
+
+        # Domain Skills
+        summary += "\n## 👥 Domain Skills\n"
         for skill in plan.domain_skills:
             marker = "⭐" if skill == "Instructional Designer" else "•"
             summary += f"{marker} {skill}\n"
@@ -1003,29 +1849,52 @@ Create your reasoning plan in the JSON format specified."""
         for cap in plan.domain_capabilities:
             summary += f"• `{cap}`\n"
         
-        summary += "\n## 📝 Execution Steps\n"
+        # Detailed Execution Steps
+        summary += "\n## 📝 Execution Steps (Detailed)\n"
         
         for step in plan.steps:
-            deps = f" (depends on: {', '.join(map(str, step.dependencies))})" if step.dependencies else ""
+            deps = f" *(depends on: {', '.join(map(str, step.dependencies))})*" if step.dependencies else ""
+            priority_icon = {"critical": "🔴", "important": "🟡", "optional": "🟢"}.get(step.priority, "🟡")
+            
             summary += f"""
-### Step {step.step_number}: {step.title}{deps}
+### {priority_icon} Step {step.step_number}: {step.title}{deps}
+**Effort:** {step.estimated_effort} | **Priority:** {step.priority} | **Tools:** {', '.join(step.tools_needed)}
+
 {step.description}
-**Expected output:** {step.expected_output}
+
 """
+            # Sub-steps
+            if step.sub_steps:
+                summary += "**Sub-tasks:**\n"
+                for i, sub in enumerate(step.sub_steps, 1):
+                    summary += f"  {i}. {sub}\n"
+            
+            # Validation criteria
+            if step.validation_criteria:
+                summary += "**Validation:**\n"
+                for v in step.validation_criteria:
+                    summary += f"  ✓ {v}\n"
+            
+            summary += f"**Expected Output:** {step.expected_output}\n"
         
+        # Constraints
         if plan.constraints:
-            summary += "\n## ⚠️ Constraints\n"
+            summary += "\n## 🚧 Constraints\n"
             for c in plan.constraints:
                 summary += f"- {c}\n"
         
+        # Success Criteria
         if plan.success_criteria:
             summary += "\n## ✅ Success Criteria\n"
             for c in plan.success_criteria:
                 summary += f"- {c}\n"
         
-        summary += f"\n## ⚡ Complexity: {plan.estimated_complexity.upper()}\n"
-        summary += f"\n## 📊 Metadata\n"
-        summary += f"- Created: {plan.created_at}\n"
-        summary += f"- Instructional Designer: {'✅ Included' if 'Instructional Designer' in plan.domain_skills else '❌ Missing'}\n"
+        # Metadata
+        summary += f"\n## 📊 Plan Metadata\n"
+        summary += f"- **Created:** {plan.created_at}\n"
+        summary += f"- **Total Steps:** {len(plan.steps)}\n"
+        summary += f"- **Critical Steps:** {sum(1 for s in plan.steps if s.priority == 'critical')}\n"
+        summary += f"- **Instructional Designer:** {'✅ Included' if 'Instructional Designer' in plan.domain_skills else '❌ Missing'}\n"
+        summary += f"- **Analysis Depth:** Intensive (4-phase)\n"
         
         return summary

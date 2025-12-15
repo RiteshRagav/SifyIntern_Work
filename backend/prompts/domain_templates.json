@@ -1,39 +1,50 @@
 {
-  "product_demo": {
-    "planning_rules": "Create a structured product demonstration that follows the AIDA framework (Attention, Interest, Desire, Action). Open with a hook showing the problem, introduce the product as the solution, demonstrate 3-5 key features with clear benefits, and close with a strong call-to-action. Each scene should highlight a single feature or benefit.",
-    "camera_rules": "Use close-up shots for UI details and feature highlights. Medium shots for context and user interaction. Wide establishing shots sparingly. Smooth transitions between features. Screen recordings should use subtle zoom effects to guide viewer attention. Maintain consistent framing throughout.",
-    "tone_guidelines": "Professional yet approachable. Confident but not arrogant. Focus on user benefits rather than technical specifications. Use active voice and action-oriented language. Maintain enthusiasm without being salesy. Clear and concise narration.",
-    "visual_style": "Clean, modern aesthetic with the product's brand colors as accents. Minimal backgrounds to keep focus on the product. Consistent lighting that's bright and professional. Use subtle motion graphics for emphasis. High contrast for text overlays. Maintain visual hierarchy with the product always as the focal point."
+  "software": {
+    "content_guidelines": "Create clear, well-structured technical content. Use code examples where appropriate. Follow best practices for the relevant technology stack.",
+    "quality_standards": "Ensure accuracy, completeness, and clarity. Include error handling considerations. Provide context for technical decisions.",
+    "tone_guidelines": "Professional and precise. Technical but accessible. Helpful and educational.",
+    "output_style": "Well-organized with clear sections. Use code blocks for examples. Include explanations and comments."
   },
   "education": {
-    "planning_rules": "Follow the Tell-Show-Do methodology. Begin with learning objectives. Break complex concepts into digestible segments. Use the Feynman technique - explain as if to a beginner. Include recap scenes every 3-4 content scenes. End with summary and key takeaways. Anticipate common misconceptions and address them.",
-    "camera_rules": "Use steady, deliberate camera movements. Avoid quick cuts that can confuse learners. Use split-screen for comparisons. Employ visual anchoring - return to familiar visual elements. Close-ups for details, wide shots for context. Use animated diagrams and infographics to explain abstract concepts.",
-    "tone_guidelines": "Patient and encouraging. Clear and precise language suitable for the target audience level. Avoid jargon unless teaching it. Use analogies and real-world examples. Maintain a supportive tone that builds confidence. Celebrate progress and acknowledge difficulty.",
-    "visual_style": "Consistent color coding for concepts. Clean, uncluttered frames. High contrast for important information. Use visual metaphors consistently. Readable fonts and appropriate text sizing. Whitespace is important for cognitive processing. Icons and symbols for recurring concepts."
+    "content_guidelines": "Follow instructional design principles. Start with objectives, build progressively, include practice opportunities. Use examples and analogies.",
+    "quality_standards": "Age/skill-appropriate content. Clear learning objectives. Measurable outcomes. Engaging presentation.",
+    "tone_guidelines": "Patient and encouraging. Clear and precise. Supportive and motivating. Builds confidence.",
+    "output_style": "Structured lessons with objectives. Include examples, exercises, and summaries. Progressive complexity."
   },
-  "medical": {
-    "planning_rules": "Prioritize accuracy and patient safety messaging. Structure content from general to specific. Include appropriate disclaimers. Balance technical accuracy with accessibility. Show step-by-step procedures when relevant. Address emotional aspects alongside medical facts. Always recommend professional consultation.",
-    "camera_rules": "Use respectful, non-sensational framing. Anatomical accuracy in visualizations. Clear, well-lit clinical environments. Avoid graphic content unless medically necessary. Use diagrams and 3D models for internal processes. Maintain patient dignity in all representations.",
-    "tone_guidelines": "Empathetic and reassuring. Authoritative but not intimidating. Use plain language (6th-grade reading level for patient materials). Acknowledge fears and concerns. Provide hope while maintaining realism. Respectful of diverse patient populations.",
-    "visual_style": "Clean, clinical aesthetic with calming colors (blues, greens, whites). Professional medical environments. Diverse patient representation. Clear medical graphics and anatomical illustrations. Readable text with medical accuracy. Avoid stock photography clichés."
+  "healthcare": {
+    "content_guidelines": "Prioritize accuracy and patient safety. Use evidence-based information. Include appropriate disclaimers. Balance technical accuracy with accessibility.",
+    "quality_standards": "Medically accurate. Properly cited. Includes safety information. Recommends professional consultation.",
+    "tone_guidelines": "Empathetic and reassuring. Professional but warm. Clear and honest. Respectful of concerns.",
+    "output_style": "Clear sections with key points. Plain language explanations. Action items and warning signs clearly marked."
   },
   "marketing": {
-    "planning_rules": "Lead with emotion, support with logic. Establish brand identity in the first 3 seconds. Use storytelling structure: protagonist, conflict, resolution, transformation. Focus on customer transformation rather than product features. Create urgency without manipulation. Include social proof when possible.",
-    "camera_rules": "Dynamic camera movements that create energy. Hero shots of products from flattering angles. Lifestyle shots showing the product in use. Fast cuts for energy, slower pace for emotional moments. Use depth of field to direct attention. Cinematic quality for premium brands.",
-    "tone_guidelines": "On-brand voice that matches the target demographic. Aspirational but attainable. Create emotional connection before logical arguments. Authentic and relatable. Avoid hyperbole. Match energy level to brand personality.",
-    "visual_style": "Strict brand color palette adherence. Premium production quality. Lifestyle imagery that represents target audience aspirations. Bold typography for key messages. Visual consistency across all scenes. Contemporary design trends appropriate to the brand."
+    "content_guidelines": "Focus on value proposition and benefits. Know the target audience. Use persuasive but honest messaging. Include clear calls to action.",
+    "quality_standards": "On-brand messaging. Compelling copy. Clear value proposition. Measurable objectives.",
+    "tone_guidelines": "On-brand voice. Engaging and persuasive. Authentic and relatable. Action-oriented.",
+    "output_style": "Attention-grabbing headlines. Benefit-focused content. Clear structure. Strong calls to action."
   },
-  "film_style": {
-    "planning_rules": "Follow three-act structure: Setup (25%), Confrontation (50%), Resolution (25%). Develop character arcs with clear motivations. Create rising tension with strategic release points. Plant setups and payoffs. Balance exposition with action. Every scene should serve plot, character, or theme.",
-    "camera_rules": "Camera is a storytelling tool - every movement has meaning. Dolly in for intensity, out for isolation. Tracking shots for journey/pursuit. Static for stability or tension. Match shot composition to emotional beats. Use rule of thirds, but break it purposefully. Establish spatial geography clearly.",
-    "tone_guidelines": "Match tone to genre conventions. Consistent narrative voice throughout. Dialogue should reveal character and advance plot simultaneously. Subtext is as important as text. Balance humor and drama appropriately. Authentic emotional beats.",
-    "visual_style": "Cinematic aspect ratios and composition. Lighting motivated by story environment. Color grading that supports emotional journey. Visual motifs that recur meaningfully. Production design that reveals character and world. Attention to period/setting authenticity."
+  "finance": {
+    "content_guidelines": "Ensure accuracy in all calculations and data. Include appropriate disclaimers. Explain methodology clearly. Consider risk factors.",
+    "quality_standards": "Accurate data and calculations. Clear methodology. Appropriate disclaimers. Professional presentation.",
+    "tone_guidelines": "Professional and authoritative. Clear and precise. Objective and balanced. Risk-aware.",
+    "output_style": "Executive summary with details. Data-driven with clear visualizations. Methodology explained. Recommendations justified."
   },
-  "gaming": {
-    "planning_rules": "Showcase gameplay variety and core mechanics. Highlight player agency and choice. Build excitement through progression systems. Balance story moments with action sequences. Show both challenge and reward. Demonstrate unique selling points compared to genre competitors.",
-    "camera_rules": "Dynamic angles that emphasize action. Over-shoulder for immersion. Wide shots for scale and spectacle. Dramatic angles for boss encounters and key moments. Quick cuts for intensity. Smooth camera for exploration and atmosphere. HUD visibility considerations.",
-    "tone_guidelines": "Exciting and engaging. Match the game's established tone and world. Appeal to target gaming demographic. Create anticipation for gameplay moments. Authentic to gaming culture without being exclusionary. Balance hype with honest representation.",
-    "visual_style": "Honor the game's art direction. Highlight visual fidelity and effects. Show environmental variety. Capture character designs effectively. UI/UX elements should be readable. Epic scale when appropriate. Attention to particle effects and visual polish."
+  "legal": {
+    "content_guidelines": "Include disclaimers that content is not legal advice. Be precise and unambiguous. Define terms clearly. Recommend professional consultation.",
+    "quality_standards": "Accurate legal information. Clear disclaimers. Precise language. Proper structure.",
+    "tone_guidelines": "Formal and precise. Objective and neutral. Clear and unambiguous. Professional.",
+    "output_style": "Well-structured with clear sections. Defined terms. Numbered clauses where appropriate. Disclaimers prominent."
+  },
+  "general": {
+    "content_guidelines": "Create clear, helpful content that directly addresses the user's needs. Organize information logically. Provide actionable insights.",
+    "quality_standards": "Accurate and well-researched. Clear and concise. Helpful and actionable. Properly structured.",
+    "tone_guidelines": "Helpful and professional. Clear and conversational. Respectful and supportive.",
+    "output_style": "Clear structure with headings. Bullet points for lists. Examples where helpful. Summaries for complex content."
+  },
+  "default": {
+    "content_guidelines": "Create clear, well-structured content that addresses the user's request. Be thorough but concise. Provide actionable information.",
+    "quality_standards": "Accurate information. Clear presentation. Helpful content. Appropriate depth.",
+    "tone_guidelines": "Professional yet approachable. Clear and helpful. Respectful and supportive.",
+    "output_style": "Clean, organized structure. Use formatting for readability. Include relevant examples."
   }
 }
-

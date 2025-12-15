@@ -1,8 +1,9 @@
 /**
  * Thinking panel component - Shows live agent activity with clear descriptions.
+ * Features: Expandable content, copy buttons, full output display.
  */
 
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 /**
  * Agent colors for styling

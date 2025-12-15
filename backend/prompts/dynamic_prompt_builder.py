@@ -71,10 +71,10 @@ class DynamicPromptBuilder:
         """Get default templates if file is not available."""
         return {
             "default": {
-                "planning_rules": "Create a clear, structured storyboard with logical scene progression.",
-                "camera_rules": "Use appropriate camera angles and movements for each scene.",
-                "tone_guidelines": "Maintain a professional and engaging tone throughout.",
-                "visual_style": "Clean, modern visual style with consistent aesthetics."
+                "content_guidelines": "Create clear, well-structured content that addresses the user's request directly.",
+                "quality_standards": "Ensure accuracy, clarity, and helpfulness in all responses.",
+                "tone_guidelines": "Professional yet approachable. Clear and helpful.",
+                "output_style": "Well-organized with clear sections and appropriate formatting."
             }
         }
     
@@ -126,10 +126,10 @@ class DynamicPromptBuilder:
             "query": query,
             "query_type": query_analysis.get("type", "general"),
             "key_elements": query_analysis.get("elements", []),
-            "planning_rules": template.get("planning_rules", ""),
-            "camera_rules": template.get("camera_rules", ""),
+            "content_guidelines": template.get("content_guidelines", ""),
+            "quality_standards": template.get("quality_standards", ""),
             "tone_guidelines": template.get("tone_guidelines", ""),
-            "visual_style": template.get("visual_style", ""),
+            "output_style": template.get("output_style", ""),
         }
         
         if additional_context:
@@ -151,37 +151,41 @@ class DynamicPromptBuilder:
         
         # Determine query type
         query_type = "general"
-        if any(word in query_lower for word in ["demo", "showcase", "feature", "product"]):
-            query_type = "product_showcase"
-        elif any(word in query_lower for word in ["explain", "teach", "learn", "understand"]):
-            query_type = "educational"
-        elif any(word in query_lower for word in ["trailer", "cinematic", "film", "movie"]):
-            query_type = "cinematic"
-        elif any(word in query_lower for word in ["ad", "commercial", "promote", "marketing"]):
-            query_type = "promotional"
-        elif any(word in query_lower for word in ["game", "gameplay", "player"]):
-            query_type = "gaming"
+        if any(word in query_lower for word in ["explain", "what is", "how does", "describe"]):
+            query_type = "explanation"
+        elif any(word in query_lower for word in ["create", "write", "generate", "build"]):
+            query_type = "creation"
+        elif any(word in query_lower for word in ["analyze", "compare", "evaluate", "assess"]):
+            query_type = "analysis"
+        elif any(word in query_lower for word in ["help", "how to", "guide", "steps"]):
+            query_type = "guidance"
+        elif any(word in query_lower for word in ["fix", "debug", "solve", "error"]):
+            query_type = "troubleshooting"
+        elif any(word in query_lower for word in ["review", "improve", "optimize", "enhance"]):
+            query_type = "improvement"
         
         # Extract key elements
         elements = []
         
-        # Look for duration hints
-        if "short" in query_lower or "brief" in query_lower:
-            elements.append("short_format")
-        elif "long" in query_lower or "detailed" in query_lower:
-            elements.append("long_format")
+        # Look for depth hints
+        if "brief" in query_lower or "quick" in query_lower or "short" in query_lower:
+            elements.append("concise_format")
+        elif "detailed" in query_lower or "comprehensive" in query_lower or "thorough" in query_lower:
+            elements.append("detailed_format")
         
         # Look for audience hints
-        if any(word in query_lower for word in ["children", "kids", "young"]):
-            elements.append("young_audience")
-        elif any(word in query_lower for word in ["professional", "business", "corporate"]):
-            elements.append("professional_audience")
+        if any(word in query_lower for word in ["beginner", "simple", "basic", "easy"]):
+            elements.append("beginner_audience")
+        elif any(word in query_lower for word in ["advanced", "expert", "professional", "technical"]):
+            elements.append("expert_audience")
         
-        # Look for style hints
-        if any(word in query_lower for word in ["fun", "playful", "exciting"]):
-            elements.append("energetic_style")
-        elif any(word in query_lower for word in ["serious", "formal", "professional"]):
-            elements.append("formal_style")
+        # Look for format hints
+        if any(word in query_lower for word in ["list", "bullet", "points"]):
+            elements.append("list_format")
+        elif any(word in query_lower for word in ["step by step", "steps", "process"]):
+            elements.append("step_format")
+        elif any(word in query_lower for word in ["example", "examples", "sample"]):
+            elements.append("include_examples")
         
         return {
             "type": query_type,
@@ -202,17 +206,17 @@ class DynamicPromptBuilder:
         
         sections = []
         
-        if template.get("planning_rules"):
-            sections.append(f"**Planning Rules:**\n{template['planning_rules']}")
+        if template.get("content_guidelines"):
+            sections.append(f"**Content Guidelines:**\n{template['content_guidelines']}")
         
-        if template.get("camera_rules"):
-            sections.append(f"**Camera Rules:**\n{template['camera_rules']}")
+        if template.get("quality_standards"):
+            sections.append(f"**Quality Standards:**\n{template['quality_standards']}")
         
         if template.get("tone_guidelines"):
             sections.append(f"**Tone Guidelines:**\n{template['tone_guidelines']}")
         
-        if template.get("visual_style"):
-            sections.append(f"**Visual Style:**\n{template['visual_style']}")
+        if template.get("output_style"):
+            sections.append(f"**Output Style:**\n{template['output_style']}")
         
         return "\n\n".join(sections)
     
@@ -245,49 +249,65 @@ class DynamicPromptBuilder:
         # Build adaptive sections based on query analysis
         adaptive_sections = []
         
-        # Adapt planning rules based on query type
-        if query_type == "product_showcase":
+        # Adapt based on query type
+        if query_type == "explanation":
             adaptive_sections.append(
-                "Focus on feature highlights and user benefits. "
-                "Structure scenes around key product capabilities."
+                "Focus on clarity and understanding. "
+                "Use analogies and examples to illustrate concepts."
             )
-        elif query_type == "educational":
+        elif query_type == "creation":
             adaptive_sections.append(
-                "Use progressive complexity, starting simple. "
-                "Include visual metaphors and recap moments."
+                "Generate original, high-quality content. "
+                "Follow best practices for the requested format."
             )
-        elif query_type == "cinematic":
+        elif query_type == "analysis":
             adaptive_sections.append(
-                "Employ dramatic pacing and emotional beats. "
-                "Use cinematic techniques like establishing shots and reveals."
+                "Provide objective, thorough analysis. "
+                "Consider multiple perspectives and support conclusions with evidence."
             )
-        elif query_type == "promotional":
+        elif query_type == "guidance":
             adaptive_sections.append(
-                "Lead with emotional hook, follow with value proposition. "
-                "End with clear call-to-action."
+                "Provide clear, actionable guidance. "
+                "Include practical steps and considerations."
+            )
+        elif query_type == "troubleshooting":
+            adaptive_sections.append(
+                "Focus on identifying the problem and providing solutions. "
+                "Consider common causes and systematic approaches."
+            )
+        elif query_type == "improvement":
+            adaptive_sections.append(
+                "Identify areas for improvement with specific recommendations. "
+                "Prioritize suggestions by impact."
             )
         
         # Adapt based on elements
-        if "short_format" in elements:
+        if "concise_format" in elements:
             adaptive_sections.append(
-                "Keep scenes concise (3-5 seconds each). "
-                "Prioritize impact over detail."
+                "Keep the response concise and to the point. "
+                "Focus on essential information."
             )
-        elif "long_format" in elements:
+        elif "detailed_format" in elements:
             adaptive_sections.append(
-                "Allow scenes to breathe (8-15 seconds each). "
-                "Include transitional moments and detailed descriptions."
+                "Provide comprehensive coverage with full details. "
+                "Include thorough explanations and context."
             )
         
-        if "young_audience" in elements:
+        if "beginner_audience" in elements:
             adaptive_sections.append(
-                "Use bright colors and simple language. "
-                "Include engaging, dynamic visuals."
+                "Use simple, clear language. "
+                "Avoid jargon and explain any technical terms."
             )
-        elif "professional_audience" in elements:
+        elif "expert_audience" in elements:
             adaptive_sections.append(
-                "Maintain sophisticated visual language. "
-                "Focus on efficiency and clarity."
+                "Assume technical knowledge. "
+                "Focus on advanced details and nuances."
+            )
+        
+        if "include_examples" in elements:
+            adaptive_sections.append(
+                "Include relevant examples to illustrate points. "
+                "Examples should be practical and applicable."
             )
         
         # Combine with base guidelines
@@ -393,7 +413,7 @@ class DynamicPromptBuilder:
             from services.llm import get_llm_service
             self._llm_service = get_llm_service()
         
-        enhancement_prompt = f"""Given this storyboard request, suggest specific adaptations to the guidelines:
+        enhancement_prompt = f"""Given this request, suggest specific adaptations to improve the response:
 
 Domain: {domain}
 User Request: {query}
@@ -401,7 +421,7 @@ User Request: {query}
 Current Guidelines:
 {base_prompt[:500]}...
 
-Provide 2-3 specific, actionable adaptations that would improve the storyboard for this particular request. Keep each adaptation to 1-2 sentences."""
+Provide 2-3 specific, actionable adaptations that would improve the response for this particular request. Keep each adaptation to 1-2 sentences."""
 
         try:
             enhancement = await self._llm_service.generate(

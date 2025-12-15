@@ -1,8 +1,9 @@
 /**
  * Live agent feed component showing real-time agent events.
+ * Enhanced with copy buttons and expandable messages.
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   selectEvents,
@@ -40,6 +41,9 @@ const EVENT_ICONS = {
   [EVENT_TYPES.status]: '📢',
 };
 
+/** Content length threshold for expandable content */
+const EXPAND_THRESHOLD = 300;
+
 /**
  * Format timestamp for display.
  */
@@ -53,11 +57,33 @@ const formatTime = (timestamp) => {
 };
 
 /**
- * Single event item component.
+ * Single event item component with copy and expand functionality.
  */
 function EventItem({ event }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+  
   const agentClass = AGENT_COLORS[event.agent] || 'agent-default';
   const icon = EVENT_ICONS[event.event] || '📌';
+  const content = event.content || '';
+  const isLongContent = content.length > EXPAND_THRESHOLD;
+  
+  // Copy content to clipboard
+  const handleCopy = async () => {
+    try {
+      const textToCopy = `[${event.agent}] ${event.event}\n${content}`;
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+  
+  // Display content (truncated or full)
+  const displayContent = isLongContent && !isExpanded 
+    ? content.substring(0, EXPAND_THRESHOLD) + '...' 
+    : content;
   
   return (
     <div className={`event-item ${agentClass} event-${event.event}`}>
@@ -66,9 +92,26 @@ function EventItem({ event }) {
         <span className="event-agent">{event.agent}</span>
         <span className="event-type">{event.event}</span>
         <span className="event-time">{formatTime(event.timestamp || event.receivedAt)}</span>
+        <div className="event-actions">
+          <button 
+            className={`btn-copy ${copied ? 'copied' : ''}`} 
+            onClick={handleCopy}
+            title="Copy content"
+          >
+            {copied ? '✓' : '📋'}
+          </button>
+        </div>
       </div>
-      <div className="event-content">
-        {event.content}
+      <div className={`event-content ${isExpanded ? 'expanded' : ''}`}>
+        <pre className="content-text">{displayContent}</pre>
+        {isLongContent && (
+          <button 
+            className="btn-expand" 
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? '▲ Show less' : `▼ Show more (${content.length} chars)`}
+          </button>
+        )}
       </div>
       {event.metadata?.sources && (
         <div className="event-sources">
@@ -76,6 +119,22 @@ function EventItem({ event }) {
           {event.metadata.sources.map((source, i) => (
             <span key={i} className="source-tag">{source}</span>
           ))}
+        </div>
+      )}
+      {event.metadata?.final_output && (
+        <div className="event-final-output">
+          <div className="final-output-header">
+            <span>📄 Full Output ({event.metadata.final_output.length} chars)</span>
+            <button 
+              className="btn-copy-full"
+              onClick={async () => {
+                await navigator.clipboard.writeText(event.metadata.final_output);
+                alert('Full output copied!');
+              }}
+            >
+              📋 Copy Full Output
+            </button>
+          </div>
         </div>
       )}
     </div>

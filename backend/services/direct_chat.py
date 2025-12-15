@@ -45,9 +45,15 @@ You help users with their questions by:
 3. Being conversational and helpful
 4. Using markdown formatting for code blocks, lists, and headers
 
-Be helpful, accurate, and conversational. Respond naturally like a knowledgeable assistant.
-Do NOT format responses as storyboards or structured product demos unless explicitly asked.
-Just answer the user's question directly and helpfully."""
+CRITICAL RULES:
+- Answer the user's question DIRECTLY and helpfully
+- Do NOT assume the user wants a video, storyboard, or any media production
+- Do NOT mention durations, scenes, camera angles, or video formats unless EXPLICITLY asked
+- Do NOT default to "2 minute video" or any video length - this is NOT a video production tool unless the user asks for one
+- Respond like a normal AI assistant - conversational and helpful
+- Only create storyboards/videos if the user EXPLICITLY uses words like "video", "storyboard", "animation", "film"
+
+Just answer questions naturally. If asked about a topic, explain it. If asked to create something, create what they asked for - not a video about it."""
     
     STORYBOARD_SYSTEM_PROMPT = """You are a professional storyboard creator. Generate detailed, production-ready storyboards ONLY when the user explicitly asks for a storyboard.
 
@@ -100,21 +106,37 @@ Be creative, specific, and professional."""
     
     def is_storyboard_request(self, query: str) -> bool:
         """
-        Check if the user is asking for a storyboard.
+        Check if the user is EXPLICITLY asking for a storyboard or video.
+        
+        This should be restrictive - only return True if the user clearly wants
+        video/storyboard content, not just any request.
         
         Args:
             query: User query
             
         Returns:
-            bool: True if storyboard is requested
+            bool: True if storyboard/video is explicitly requested
         """
-        storyboard_keywords = [
+        # Only trigger for very explicit video/storyboard requests
+        explicit_video_keywords = [
             "storyboard", "video script", "scene breakdown", 
-            "create scenes", "video production", "animation script",
-            "visual story", "scene by scene"
+            "create a video", "make a video", "video production",
+            "animation script", "film script", "movie script",
+            "create scenes for", "video storyboard"
         ]
         query_lower = query.lower()
-        return any(kw in query_lower for kw in storyboard_keywords)
+        
+        # Must contain explicit video/storyboard keywords
+        has_explicit_keyword = any(kw in query_lower for kw in explicit_video_keywords)
+        
+        # Exclude common false positives - questions ABOUT videos, not requests TO CREATE videos
+        false_positive_patterns = [
+            "what is", "how does", "explain", "tell me about",
+            "can you help", "i need help with", "question about"
+        ]
+        is_likely_question = any(pattern in query_lower for pattern in false_positive_patterns)
+        
+        return has_explicit_keyword and not is_likely_question
     
     def build_prompt(self, query: str, domain: Optional[str] = None, mode: str = "chat") -> str:
         """
