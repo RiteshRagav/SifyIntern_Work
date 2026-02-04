@@ -213,6 +213,16 @@ async def root():
     }
 
 
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for deployment platforms."""
+    return {
+        "status": "healthy",
+        "service": settings.app_name,
+        "version": settings.app_version
+    }
+
+
 @app.get("/api/domains", response_model=DomainListResponse)
 async def get_domains():
     """Get list of available domains."""

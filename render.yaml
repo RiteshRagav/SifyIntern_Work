@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: ai-preact-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: PORT
+        value: 8000
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: CHROMADB_PERSIST_DIR
+        value: /tmp/chroma_data
+      # Add these in Render dashboard:
+      # - OPENAI_API_KEY
+      # - OPENAI_BASE_URL
+      # - MONGODB_URI
+      # - MONGODB_DATABASE
+

@@ -1,0 +1,12 @@
+{
+  "name": "ai-preact-poc",
+  "version": "1.0.0",
+  "description": "Multi-Agent Storyboard Generation System",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

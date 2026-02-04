@@ -1,0 +1,29 @@
+# Ignore backend files (deploy separately)
+backend/
+chroma_data/
+*.db
+*.sqlite3
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Ignore development files
+node_modules/
+.env
+.env.local
+*.log
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
