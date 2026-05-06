@@ -31,6 +31,10 @@ COPY . .
 # Create directories for data persistence
 RUN mkdir -p /app/chroma_data /app/logs
 
+# Pre-download ChromaDB ONNX embedding model during build
+# (avoids 79MB download on every cold start which delays port binding)
+RUN python -c "from chromadb.utils import embedding_functions; embedding_functions.DefaultEmbeddingFunction()()" 2>/dev/null || true
+
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
