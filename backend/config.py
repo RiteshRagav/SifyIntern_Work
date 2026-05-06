@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     
     # OpenAI Configuration
     openai_api_key: str = Field(default="", env="OPENAI_API_KEY")
-    openai_base_url: str = Field(default="https://infinitai.sifymdp.digital/maas/v1", env="OPENAI_BASE_URL")
+    openai_base_url: str = Field(default="https://api.openai.com/v1", env="OPENAI_BASE_URL")
     openai_model: str = Field(default="gpt-4-turbo-preview", env="OPENAI_MODEL")
     openai_temperature: float = Field(default=0.7, env="OPENAI_TEMPERATURE")
     openai_max_tokens: int = Field(default=30000, env="OPENAI_MAX_TOKENS")

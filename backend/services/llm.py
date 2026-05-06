@@ -102,7 +102,11 @@ class LLMService:
                     yield chunk.choices[0].delta.content
                     
         except Exception as e:
-            yield f"[Error: {str(e)}]"
+            error_str = str(e)
+            # Fast-fail on unrecoverable errors (quota, auth, bad key)
+            if any(code in error_str for code in ['429', '401', '403', 'insufficient_quota', 'invalid_api_key', 'not subscribed']):
+                raise RuntimeError(f"[FATAL API ERROR - stopping agents]: {error_str}") from e
+            yield f"[Error: {error_str}]"
     
     async def generate(
         self,
@@ -151,7 +155,11 @@ class LLMService:
             response = await self.client.chat.completions.create(**kwargs)
             return response.choices[0].message.content or ""
         except Exception as e:
-            return f"[Error: {str(e)}]"
+            error_str = str(e)
+            # Fast-fail on unrecoverable errors (quota, auth, bad key)
+            if any(code in error_str for code in ['429', '401', '403', 'insufficient_quota', 'invalid_api_key', 'not subscribed']):
+                return f"[FATAL API ERROR - check your API key and quota]: {error_str}"
+            return f"[Error: {error_str}]"
     
     async def generate_with_history(
         self,

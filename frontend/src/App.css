@@ -3,52 +3,52 @@
  * Supports comparison mode between normal chat and multi-agent responses.
  */
 
-/* ==================== CSS Variables (Light Mode) ==================== */
+/* ==================== CSS Variables (Dark Mode — forced) ==================== */
 :root {
-  /* Background colors */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f1f5f9;
-  --bg-card: #ffffff;
-  --bg-hover: #e2e8f0;
-  
+  /* Background colors — dark theme */
+  --bg-primary: #0f1117;
+  --bg-secondary: #1a1d27;
+  --bg-tertiary: #22263a;
+  --bg-card: #1e2235;
+  --bg-hover: #2a2f45;
+
   /* Text colors */
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  
+  --text-primary: #e8eaf6;
+  --text-secondary: #a0a8c8;
+  --text-muted: #5c6480;
+
   /* Accent colors */
-  --accent-primary: #6366f1;
-  --accent-secondary: #8b5cf6;
-  --accent-success: #10b981;
-  --accent-warning: #f59e0b;
-  --accent-error: #ef4444;
-  
+  --accent-primary: #818cf8;
+  --accent-secondary: #a78bfa;
+  --accent-success: #34d399;
+  --accent-warning: #fbbf24;
+  --accent-error: #f87171;
+
   /* Agent colors */
-  --agent-preact: #3b82f6;
-  --agent-react: #22c55e;
-  --agent-reflect: #06b6d4;
-  --agent-tme: #f97316;
-  --agent-rag: #a855f7;
-  
+  --agent-preact: #60a5fa;
+  --agent-react: #4ade80;
+  --agent-reflect: #22d3ee;
+  --agent-tme: #fb923c;
+  --agent-rag: #c084fc;
+
   /* Comparison colors */
-  --normal-chat: #f97316;
-  --multi-agent: #6366f1;
-  
+  --normal-chat: #fb923c;
+  --multi-agent: #818cf8;
+
   /* Borders and shadows */
-  --border-color: #e2e8f0;
-  --border-light: #f1f5f9;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
+  --border-color: #2d3250;
+  --border-light: #1e2235;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
-  
+
   /* Border radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -85,7 +85,10 @@ body {
 
 .app-main {
   flex: 1;
+  height: 0;          /* forces flex child to respect parent height */
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ==================== Header ==================== */
@@ -190,7 +193,8 @@ body {
 /* ==================== Chat Interface ==================== */
 .chat-interface {
   display: flex;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -288,11 +292,23 @@ body {
 /* ==================== Chat Main ==================== */
 .chat-main {
   flex: 1;
+  min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
   background: var(--bg-primary);
+}
+
+/* ==================== Chat Body (single-mode content wrapper) ==================== */
+.chat-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
 }
 
 /* ==================== Comparison Layout ==================== */
@@ -365,6 +381,7 @@ body {
 /* ==================== Chat Messages ==================== */
 .chat-messages {
   flex: 1;
+  min-height: 0;        /* critical: allows flex child to scroll inside flex parent */
   overflow-y: auto;
   padding: var(--spacing-lg);
   display: flex;
@@ -591,9 +608,10 @@ body {
   color: var(--text-primary);
   font-size: 1rem;
   padding: var(--spacing-sm);
-  resize: none;
+  resize: vertical;
   min-height: 24px;
   max-height: 200px;
+  overflow-y: auto;
   font-family: inherit;
 }
 
@@ -2096,14 +2114,7 @@ body {
   gap: var(--spacing-xs);
 }
 
-.chat-messages {
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  background: var(--bg-primary);
-  margin-bottom: var(--spacing-sm);
-}
+
 
 .chat-empty {
   padding: var(--spacing-lg);

@@ -880,7 +880,7 @@ function ChatInterface({ mode }) {
           </div>
         ) : (
           /* Single mode view */
-          <>
+          <div className="chat-body">
             <div className="chat-messages" ref={chatContainerRef}>
               {messages.length === 0 && !isRunning ? (
                 <div className="chat-welcome">
@@ -988,7 +988,7 @@ function ChatInterface({ mode }) {
                 status={status}
               />
             )}
-          </>
+          </div>
         )}
         
         {/* Compare mode thinking panel */}
