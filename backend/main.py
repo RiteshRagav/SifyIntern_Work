@@ -116,26 +116,39 @@ async def delete_pending_plan(session_id: str):
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Application lifespan manager."""
+    """Application lifespan manager — non-fatal startup for cloud deployments."""
     print(f"Starting {settings.app_name} v{settings.app_version}")
-    
-    # Initialize RAG with domain content
-    rag_service = get_rag_service()
-    await rag_service.initialize_domain_content()
-    print("RAG service initialized with domain content")
-    
-    # Connect to MongoDB
-    mongodb = await get_mongodb_service()
-    print("MongoDB connection established")
-    
+    mongodb = None
+
+    # Initialize RAG (non-fatal — works without embeddings)
+    try:
+        rag_service = get_rag_service()
+        await rag_service.initialize_domain_content()
+        print("RAG service initialized with domain content")
+    except Exception as e:
+        print(f"[WARN] RAG initialization failed (non-fatal): {e}")
+        print("[WARN] App will start without RAG — basic text retrieval will be used")
+
+    # Connect to MongoDB (non-fatal — app still serves requests)
+    try:
+        mongodb = await get_mongodb_service()
+        print("MongoDB connection established")
+    except Exception as e:
+        print(f"[WARN] MongoDB connection failed (non-fatal): {e}")
+        print("[WARN] App will start without persistent storage")
+
+    print(f"[READY] {settings.app_name} is up and serving requests")
     yield
-    
+
     # Shutdown
     print("Shutting down...")
     for task in running_tasks.values():
         task.cancel()
     if mongodb:
-        await mongodb.disconnect()
+        try:
+            await mongodb.disconnect()
+        except Exception:
+            pass
 
 
 # Create FastAPI application
@@ -215,11 +228,15 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint for deployment platforms."""
+    """Health check endpoint — always returns 200 so Render/Railway healthcheck passes."""
+    from storage.mongodb import _mongodb_service
+    mongo_ok = _mongodb_service is not None and _mongodb_service.db is not None
     return {
         "status": "healthy",
         "service": settings.app_name,
-        "version": settings.app_version
+        "version": settings.app_version,
+        "mongodb": "connected" if mongo_ok else "unavailable",
+        "llm": "configured" if settings.openai_api_key else "missing API key",
     }
 
 
